@@ -18,7 +18,7 @@ namespace ProjMeitarBorisOrel.Controllers
             _context = context;
         }
 
-        // GET: Posts
+        // GET:  Posts
         public async Task<IActionResult> Index(string searchString, string searchString2)
         {
             var posts = from s in _context.Post
