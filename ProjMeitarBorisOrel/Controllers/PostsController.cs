@@ -19,10 +19,23 @@ namespace ProjMeitarBorisOrel.Controllers
         }
 
         // GET: Posts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, string searchString2)
         {
-            var blogContext = _context.Post.Include(p => p.User);
-            return View(await blogContext.ToListAsync());
+            var posts = from s in _context.Post
+                        select s;
+
+            if (!String.IsNullOrEmpty(searchString)&& !String.IsNullOrEmpty(searchString2))
+            {
+                posts = posts.Where(s => s.Title.Contains(searchString) && s.Author_Name.Contains(searchString2));
+            }
+
+            return View(posts.ToList());
+
+
+
+
+            //var blogContext = _context.Post.Include(p => p.User);
+            //return View(await blogContext.ToListAsync());
         }
 
         // GET: Posts/Details/5
