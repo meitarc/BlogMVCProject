@@ -18,7 +18,7 @@ namespace ProjMeitarBorisOrel.Controllers
             _context = context;
         }
 
-        // GET:  Posts
+        // GET: Posts
         public async Task<IActionResult> Index(string searchString, string searchString2)
         {
             var posts = from s in _context.Post
@@ -46,11 +46,7 @@ namespace ProjMeitarBorisOrel.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post
-              .Include(p => p.User)
-            .FirstOrDefaultAsync(m => m.ID == id);
-            /////////////////
-            post = await _context.Post
+            var post = await _context.Post.Include(p => p.User)
                 .Include(p => p.Comments).AsNoTracking()
             .FirstOrDefaultAsync(m => m.ID == id);
             if (post == null)
