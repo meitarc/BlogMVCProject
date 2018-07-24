@@ -19,9 +19,20 @@ namespace ProjMeitarBorisOrel.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.User.ToListAsync());
+           
+           
+                var users = from s in _context.User
+                            select s;
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                users = users.Where(s => s.First_Name.Contains(searchString) || s.Last_Name.Contains(searchString));
+                }
+
+            return View(users.ToList());
+          //  return View(await _context.User.ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -148,5 +159,7 @@ namespace ProjMeitarBorisOrel.Controllers
         {
             return _context.User.Any(e => e.ID == id);
         }
+
+     
     }
 }
