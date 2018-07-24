@@ -33,9 +33,12 @@ namespace ProjMeitarBorisOrel.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Post
-                .Include(p => p.User)
-                .FirstOrDefaultAsync(m => m.ID == id);
+            //var post = await _context.Post
+            //  .Include(p => p.User)
+            //.FirstOrDefaultAsync(m => m.ID == id);
+
+            var post = await _context.Post.Include(p => p.Comments).AsNoTracking()
+    .FirstOrDefaultAsync(m => m.ID == id);
             if (post == null)
             {
                 return NotFound();
