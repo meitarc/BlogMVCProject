@@ -75,6 +75,7 @@ namespace ProjMeitarBorisOrel.Controllers
         {
             ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "ID");
             ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ID");
+            
             return View();
         }
 
@@ -93,6 +94,8 @@ namespace ProjMeitarBorisOrel.Controllers
             }
             ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "ID", comment.PostID);
             ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ID", comment.UserID);
+
+
             return View(comment);
         }
 
