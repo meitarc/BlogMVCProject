@@ -38,15 +38,9 @@ namespace ProjMeitarBorisOrel.Controllers
             {
                 posts = posts.Where(s => s.Text.Contains(searchString3));
             }
-
             
-
-
             return View(posts.ToList());
-
-
-
-
+            
             //var blogContext = _context.Post.Include(p => p.User);
             //return View(await blogContext.ToListAsync());
         }
