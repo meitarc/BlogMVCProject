@@ -19,10 +19,35 @@ namespace ProjMeitarBorisOrel.Controllers
         }
 
         // GET: Comments
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3)
         {
-            var blogContext = _context.Comment.Include(c => c.Post).Include(c => c.User);
-            return View(await blogContext.ToListAsync());
+            var comms = from s in _context.Comment
+                        select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                comms = comms.Where(s => s.Title.Contains(searchString));
+            }
+
+            if (!String.IsNullOrEmpty(searchString2))
+            {
+                comms = comms.Where(s => s.Text.Contains(searchString2));
+            }
+
+            if (!String.IsNullOrEmpty(searchString3))
+            {
+                comms = comms.Where(s => s.Author_Name.Contains(searchString3));
+            }
+
+
+
+
+            return View(comms.ToList());
+
+
+
+            // var blogContext = _context.Comment.Include(c => c.Post).Include(c => c.User);
+            // return View(await blogContext.ToListAsync());
         }
 
         // GET: Comments/Details/5
