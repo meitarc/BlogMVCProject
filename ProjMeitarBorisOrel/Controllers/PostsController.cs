@@ -12,9 +12,10 @@ namespace ProjMeitarBorisOrel.Controllers
     public class PostsController : Controller
     {
         private readonly BlogContext _context;
-
+        
         public PostsController(BlogContext context)
         {
+           
             _context = context;
         }
 
@@ -23,7 +24,6 @@ namespace ProjMeitarBorisOrel.Controllers
         {
             var posts = from s in _context.Post
                         select s;
-
             if (!String.IsNullOrEmpty(searchString))
             {
                 posts = posts.Where(s => s.Title.Contains(searchString));
@@ -68,6 +68,7 @@ namespace ProjMeitarBorisOrel.Controllers
         public IActionResult Create()
         {
             ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ID");
+           
             return View();
         }
 
@@ -78,6 +79,7 @@ namespace ProjMeitarBorisOrel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,UserID,PublishedDate,Title,Author_Name,Text,UrlImage")] Post post)
         {
+           
             if (ModelState.IsValid)
             {
                 _context.Add(post);
@@ -173,6 +175,7 @@ namespace ProjMeitarBorisOrel.Controllers
 
         private bool PostExists(int id)
         {
+           
             return _context.Post.Any(e => e.ID == id);
         }
     }
