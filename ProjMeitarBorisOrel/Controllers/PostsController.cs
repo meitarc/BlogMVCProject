@@ -19,15 +19,28 @@ namespace ProjMeitarBorisOrel.Controllers
         }
 
         // GET: Posts
-        public async Task<IActionResult> Index(string searchString, string searchString2)
+        public async Task<IActionResult> Index(string searchString, string searchString2,string searchString3)
         {
             var posts = from s in _context.Post
                         select s;
 
-            if (!String.IsNullOrEmpty(searchString)&& !String.IsNullOrEmpty(searchString2))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                posts = posts.Where(s => s.Title.Contains(searchString) && s.Author_Name.Contains(searchString2));
+                posts = posts.Where(s => s.Title.Contains(searchString));
             }
+
+            if (!String.IsNullOrEmpty(searchString2))
+            {
+                posts = posts.Where(s => s.Author_Name.Contains(searchString2));
+            }
+
+            if (!String.IsNullOrEmpty(searchString3))
+            {
+                posts = posts.Where(s => s.Text.Contains(searchString3));
+            }
+
+            
+
 
             return View(posts.ToList());
 
