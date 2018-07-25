@@ -19,20 +19,27 @@ namespace ProjMeitarBorisOrel.Controllers
         }
 
         // GET: Users
-        public async Task<IActionResult> Index(string searchString)
+        public IActionResult Index(string searchString, string searchString2, string searchString3)
         {
-           
-           
-                var users = from s in _context.User
-                            select s;
 
-                if (!String.IsNullOrEmpty(searchString))
-                {
-                users = users.Where(s => s.First_Name.Contains(searchString) || s.Last_Name.Contains(searchString));
-                }
+            var users = from s in _context.User
+                        select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.User_Name.Contains(searchString));
+            }
+            if (!String.IsNullOrEmpty(searchString2))
+            {
+                users = users.Where(s => s.First_Name.Contains(searchString2));
+            }
+            if (!String.IsNullOrEmpty(searchString3))
+            {
+                users = users.Where(s => s.Last_Name.Contains(searchString3));
+            }
 
             return View(users.ToList());
-          //  return View(await _context.User.ToListAsync());
+            //  return View(await _context.User.ToListAsync());
         }
 
         // GET: Users/Details/5
