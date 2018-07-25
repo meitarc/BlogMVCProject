@@ -11,10 +11,12 @@
 </p>
 @using (Html.BeginForm())
 {
-    <p>
-        Find by name: @Html.TextBox("SearchString")
-        <input type="submit" value="Search" />
-    </p>
+<p>
+    Find by UserName: @Html.TextBox("SearchString")
+    firstName: @Html.TextBox("SearchString2")
+    lastName: @Html.TextBox("SearchString3")
+    <input type="submit" value="Search" />
+</p>
 }
 <table class="table">
     <thead>
