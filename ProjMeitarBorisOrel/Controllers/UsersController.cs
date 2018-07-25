@@ -28,16 +28,19 @@ namespace ProjMeitarBorisOrel.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 users = users.Where(s => s.User_Name.Contains(searchString));
+                users = users.OrderBy(s => s.User_Name);
             }
             if (!String.IsNullOrEmpty(searchString2))
             {
                 users = users.Where(s => s.First_Name.Contains(searchString2));
+                users = users.OrderBy(s => s.First_Name);
             }
             if (!String.IsNullOrEmpty(searchString3))
             {
                 users = users.Where(s => s.Last_Name.Contains(searchString3));
+                users = users.OrderBy(s => s.Last_Name);
             }
-
+            
             return View(users.ToList());
             //  return View(await _context.User.ToListAsync());
         }
