@@ -9,16 +9,27 @@ namespace ProjMeitarBorisOrel.Models
     public class User
     {
         public int ID { get; set; }
+
         [Required(ErrorMessage="User Name is required")]
+        [StringLength(15, ErrorMessage = "User name cannot be longer than 15 characters.")]
+        [Display(Name = "User Name")]
         public string User_Name { get; set; }
+
         [Required(ErrorMessage = "First Name is required")]
+        [Display(Name = "First Name")]
         public string First_Name { get; set; }
+
         [Required(ErrorMessage = "Last Name  is required")]
+        [Display(Name = "Last Name")]
         public string Last_Name { get; set; }
+
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Display(Name = "Admin?")]
         public bool Is_Admin { get; set; }
+
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         
