@@ -11,7 +11,7 @@ namespace ProjMeitarBorisOrel.Models
         public int ID { get; set; }
 
         [Required(ErrorMessage="User Name is required")]
-        [StringLength(15, ErrorMessage = "User name cannot be longer than 15 characters.")]
+        [StringLength(15, MinimumLength = 3, ErrorMessage = "User Name must be between 3 and 15 characters")]
         [Display(Name = "User Name")]
         public string User_Name { get; set; }
 
