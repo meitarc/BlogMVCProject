@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ProjMeitarBorisOrel</title>
+    <title>@ViewData["Title"] - Matala2</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/11.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -17,51 +17,91 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">ProjMeitarBorisOrel</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <!--<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>-->
-                    <li><a asp-controller="Comments" asp-action="Index">Comments</a></li>
-                    <li><a asp-controller="Posts" asp-action="Index">Posts</a></li>
-                    <li><a asp-controller="Users" asp-action="Index">Users</a></li>
-                </ul>
-            </div>
-        </div>
+
+    <header>
+        <h1>Ha-Blog Shel Shauli</h1>
+    </header>
+
+    <audio controls <!--autoplay--> loop>
+		<source src="neta.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+		</audio>
+
+    <nav>
+        <!-- Navigation -->
+        <ul>
+            <MainButtons>
+                <li><a asp-controller="Users" asp-action="Index">Users</a></li>
+                <li><a asp-controller="Posts" asp-action="Index">Posts</a></li>
+                <li class="bott"><a asp-controller="Comments" asp-action="Index">Comments</a></li>
+                
+            </MainButtons>
+        </ul>
     </nav>
+    <br><br><br>
 
-    <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - ProjMeitarBorisOrel</p>
-        </footer>
     </div>
+    <section id="intro">
+        <!-- Introduction -->
 
+
+
+        <header>
+            <h2>Do you have questions for me?</h2>
+        </header>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
+        <img src="images/intro_shauli.png" alt="Shauli" />
+    </section>
+    
+        <div>
+
+            @RenderBody()
+            <hr />
+        </div><br />
+
+
+    <!-- Footer -->
+    <footer>
+        <div>
+            <section id="about">
+                <header>
+                    <h3>About</h3>
+                </header>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut la</p>
+            </section>
+            <section id="blogroll">
+                <header>
+                    <h3>Blogroll</h3>
+                </header>
+                <ul>
+                    <li><a href="#">NETTUTS+</a></li>
+                    <li><a href="#">FreelanceSwitch</a></li>
+                </ul>
+            </section>
+            <section id="popular">
+                <header>
+                    <h3>Popular</h3>
+                </header>
+                <ul>
+                    <li><a href="#">This is the title of a blog post</a></li>
+                    <li><a href="#">Lorem ipsum dolor sit amet</a></li>
+                    <li><a href="#">Consectetur adipisicing elit, sed do eiusmod</a></li>
+                </ul>
+            </section>
+        </div>
+    </footer>
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
                 asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
                 asp-fallback-test="window.jQuery"
                 crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
         </script>
         <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
@@ -74,4 +114,7 @@
 
     @RenderSection("Scripts", required: false)
 </body>
+
+
+
 </html>
