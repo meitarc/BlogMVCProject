@@ -19,6 +19,8 @@ namespace ProjMeitarBorisOrel.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public bool Is_Admin { get; set; }
+        [Required(ErrorMessage = "Email  is required")]
+        public string Email { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         

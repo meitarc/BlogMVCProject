@@ -19,11 +19,12 @@ namespace ProjMeitarBorisOrel.Controllers
         }
 
         // GET: Users
-        public IActionResult Index(string searchString, string searchString2, string searchString3)
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3)
         {
 
             var users = from s in _context.User
                         select s;
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -40,7 +41,8 @@ namespace ProjMeitarBorisOrel.Controllers
                 users = users.Where(s => s.Last_Name.Contains(searchString3));
                 users = users.OrderBy(s => s.Last_Name);
             }
-            
+
+
             return View(users.ToList());
             //  return View(await _context.User.ToListAsync());
         }
@@ -74,7 +76,7 @@ namespace ProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin")] User user)
+        public async Task<IActionResult> Create([Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin,Email")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +108,7 @@ namespace ProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin,Email")] User user)
         {
             if (id != user.ID)
             {
@@ -169,7 +171,7 @@ namespace ProjMeitarBorisOrel.Controllers
         {
             return _context.User.Any(e => e.ID == id);
         }
-
+       
      
     }
 }
