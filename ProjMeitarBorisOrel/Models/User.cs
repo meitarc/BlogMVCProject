@@ -29,7 +29,8 @@ namespace ProjMeitarBorisOrel.Models
 
         [Display(Name = "Admin?")]
         public bool Is_Admin { get; set; }
-
+        [Required(ErrorMessage = "Email  is required")]
+        public string Email { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         

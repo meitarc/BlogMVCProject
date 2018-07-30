@@ -19,11 +19,12 @@ namespace ProjMeitarBorisOrel.Controllers
         }
 
         // GET: Users
-        public IActionResult Index(string searchString, string searchString2, string searchString3)
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3)
         {
 
             var users = from s in _context.User
                         select s;
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -107,7 +108,7 @@ List<UserNames> result = from users in UserModel
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin")] User user)
+        public async Task<IActionResult> Create([Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin,Email")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -139,7 +140,7 @@ List<UserNames> result = from users in UserModel
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin,Email")] User user)
         {
             if (id != user.ID)
             {
@@ -202,7 +203,7 @@ List<UserNames> result = from users in UserModel
         {
             return _context.User.Any(e => e.ID == id);
         }
-
+       
      
     }
 }

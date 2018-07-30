@@ -22,6 +22,7 @@ namespace ProjMeitarBorisOrel.Controllers
         // GET: Posts
         public async Task<IActionResult> Index(string searchString, string searchString2,string searchString3)
         {
+           
             var posts = from s in _context.Post
                         select s;
             if (!String.IsNullOrEmpty(searchString))
@@ -178,5 +179,7 @@ namespace ProjMeitarBorisOrel.Controllers
            
             return _context.Post.Any(e => e.ID == id);
         }
+
+        
     }
 }
