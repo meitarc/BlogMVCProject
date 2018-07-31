@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Matala2</title>
+    <title>@ViewData["Title"] - Blog</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/11.css" />
+        <link rel="stylesheet" href="~/css/blogCss.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -19,48 +19,38 @@
 <body>
 
     <header>
-        <h1>Ha-Blog Shel Shauli</h1>
+        <img src="~/images/Blog.jpg" width="400" />
     </header>
 
-    <audio controls <!--autoplay--> loop>
-		<source src="neta.mp3" type="audio/mpeg">
-		Your browser does not support the audio element.
-		</audio>
+
 
     <nav>
         <!-- Navigation -->
         <ul>
-            <MainButtons>
-                <li><a asp-controller="Users" asp-action="Index">Users</a></li>
-                <li><a asp-controller="Posts" asp-action="Index">Posts</a></li>
-                <li class="bott"><a asp-controller="Comments" asp-action="Index">Comments</a></li>
-                
-            </MainButtons>
+            
+            <li><a asp-controller="Users" asp-action="Index"><section id="MainButtons">Users</section></a></li>
+            <li><a asp-controller="Posts" asp-action="Index"><section id="MainButtons">Posts</section></a></li>
+            <li class="bott"><a asp-controller="Comments" asp-action="Index"><section id="MainButtons">Comments</section></a></li>
+
+
         </ul>
     </nav>
     <br><br><br>
 
 
     </div>
-    <section id="intro">
-        <!-- Introduction -->
 
 
+    <div>
 
-        <header>
-            <h2>Do you have questions for me?</h2>
-        </header>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut.</p>
-        <img src="images/intro_shauli.png" alt="Shauli" />
-    </section>
-    
-        <div>
+        @RenderBody()
+        <hr />
+    </div><br />
 
-            @RenderBody()
-            <hr />
-        </div><br />
-
-
+    <audio controls <!--autoplay--> loop>
+		<source src="neta.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
     <!-- Footer -->
     <footer>
         <div>

@@ -5,11 +5,13 @@
 /* Makeshift CSS Reset */
 #MainButtons {
     color: white;
-    font-size: 40px;
+    font-size: 20px;
+    text-align:center;
 }
 #MainButtons li {
     color: white;
     font-size: 40px;
+    text-align:center;
 }
 
 * {
@@ -17,8 +19,9 @@
     padding: 0;
 }
 
-header{
-text-shadow: 3px 3px #DDDDDD;
+header {
+    text-shadow: 3px 3px #DDDDDD;
+text-align:center;
 
 }
 article{
@@ -54,6 +57,7 @@ h3 {
 
 p {
 	padding-bottom: 22px;
+   
 }
 
 
@@ -63,20 +67,23 @@ p {
 ------------------------------*/
 
 nav {
-	position: absolute;
-	left: 0;
-	width: 100%;
-	background: black;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background-image: url("../images/back.jpg");
 }
 
 	nav ul {
 		margin: 0 auto;
-		width: 940px;
+		width: 530px;
 		list-style: none;
+
 	}
 
 		nav ul li {
-			float: left;
+			float:left;
+
+
 		}
 		
 			nav ul li a {
@@ -315,7 +322,7 @@ form {
 			display: table-cell;
 			width: 140px;
 			padding-right: 20px;
-			text-align: right;
+			text-align: left;
 			font-weight: bold;
 			vertical-align: top;
 		}
