@@ -15,7 +15,7 @@ namespace ProjMeitarBorisOrel.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -25,15 +25,18 @@ namespace ProjMeitarBorisOrel.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Author_Name");
+                    b.Property<string>("Author_Name")
+                        .IsRequired();
 
                     b.Property<int>("PostID");
 
                     b.Property<DateTime>("PublishedDate");
 
-                    b.Property<string>("Text");
+                    b.Property<string>("Text")
+                        .IsRequired();
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.Property<int>("UserID");
 
@@ -52,13 +55,16 @@ namespace ProjMeitarBorisOrel.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Author_Name");
+                    b.Property<string>("Author_Name")
+                        .IsRequired();
 
                     b.Property<DateTime>("PublishedDate");
 
-                    b.Property<string>("Text");
+                    b.Property<string>("Text")
+                        .IsRequired();
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.Property<string>("UrlImage");
 
@@ -77,15 +83,23 @@ namespace ProjMeitarBorisOrel.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("First_Name");
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("First_Name")
+                        .IsRequired();
 
                     b.Property<bool>("Is_Admin");
 
-                    b.Property<string>("Last_Name");
+                    b.Property<string>("Last_Name")
+                        .IsRequired();
 
-                    b.Property<string>("Password");
+                    b.Property<string>("Password")
+                        .IsRequired();
 
-                    b.Property<string>("User_Name");
+                    b.Property<string>("User_Name")
+                        .IsRequired()
+                        .HasMaxLength(15);
 
                     b.HasKey("ID");
 

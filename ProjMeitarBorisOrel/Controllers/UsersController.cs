@@ -19,11 +19,12 @@ namespace ProjMeitarBorisOrel.Controllers
         }
 
         // GET: Users
-        public IActionResult Index(string searchString, string searchString2, string searchString3)
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3)
         {
 
             var users = from s in _context.User
                         select s;
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -40,10 +41,43 @@ namespace ProjMeitarBorisOrel.Controllers
                 users = users.Where(s => s.Last_Name.Contains(searchString3));
                 users = users.OrderBy(s => s.Last_Name);
             }
-            
+            //users = users.GroupBy(s => s.First_Name)
+            /*
+             cities.GroupBy(g => g.state)
+                .Select(o =>new { 
+                    State = o.Key,
+                        Cities = o.OrderBy(c => c.cityname).Tolist()})
+                            .Tolist();
+             */
+            //  var user2=from s in _context.User=
+            //           group User by s.First_Name into fn
+            //               select 
+
+            //Group the users by firstName
+            //List<User> result = from ss in _context.User
+            //                    .GroupBy(User => User.First_Name).Select(User => new User ) select ss.First_Name;
+
+            /*צריך רשימה כדי להחזיק את השם הפרטי
+List<UserNames> result = from users in UserModel
+ממה שקיים כרגע תקבץ לפי שם פרטי
+               .GroupBy(Users => Users.FirstName)
+               .Select(user =>new 
+			   תביא לי את מה שקיבצת כאובייקט שניתן לעשות עליו query
+               {
+                   name = user.name,
+				   תוציא לרשימה
+               }).ToList();*/
+            //var users2 = from s in _context.User
+            //                   group User by s.First_Name into fn
+            //                 select new Group<string, Names> { Key = fn.Key, Values = fn };
+
+           // return View(users2.ToList());
+
             return View(users.ToList());
             //  return View(await _context.User.ToListAsync());
         }
+
+
 
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -74,7 +108,7 @@ namespace ProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin")] User user)
+        public async Task<IActionResult> Create([Bind("ID,User_Name,First_Name,Last_Name,Email,Password,Is_Admin")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +140,7 @@ namespace ProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,User_Name,First_Name,Last_Name,Email,Password,Is_Admin")] User user)
         {
             if (id != user.ID)
             {
@@ -169,7 +203,7 @@ namespace ProjMeitarBorisOrel.Controllers
         {
             return _context.User.Any(e => e.ID == id);
         }
-
+       
      
     }
 }

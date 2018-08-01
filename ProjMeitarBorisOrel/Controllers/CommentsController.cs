@@ -38,10 +38,7 @@ namespace ProjMeitarBorisOrel.Controllers
             {
                 comms = comms.Where(s => s.Author_Name.Contains(searchString3));
             }
-
-
-
-
+            
             return View(comms.ToList());
 
 
