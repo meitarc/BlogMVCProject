@@ -1,0 +1,63 @@
+﻿@model BlogProjMeitarBorisOrel.Models.Post
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<font color="blue"><h2>@Html.DisplayFor(model => model.Title) </h2></font>
+<h3>@Html.DisplayFor(model => model.Text)</h3>
+<b>By: @Html.DisplayFor(model => model.Author_Name)</b>
+<br />Date: @Html.DisplayFor(model => model.PublishedDate)
+<div>
+    <dl class="dl-horizontal">
+        @*<dt>
+                @Html.DisplayNameFor(model => model.PublishedDate)
+            </dt>
+            <dd>
+
+            </dd>
+            <dt>
+            @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
+
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Author_Name)
+            </dt>
+            <dd>
+
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Text)
+            </dt>
+            <dd>
+
+            </dd>*@
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlImage)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UrlImage)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.ID)
+        </dd>
+    </dl>
+</div>
+
+@foreach (var item in Model.Comments)
+{
+    <br />
+    <b>Comment: </b>@Html.DisplayFor(modelItem => item.Text)
+}
+
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
