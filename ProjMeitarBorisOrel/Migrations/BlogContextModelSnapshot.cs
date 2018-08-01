@@ -98,7 +98,8 @@ namespace ProjMeitarBorisOrel.Migrations
                         .IsRequired();
 
                     b.Property<string>("User_Name")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(15);
 
                     b.HasKey("ID");
 
