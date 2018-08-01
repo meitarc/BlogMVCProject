@@ -4,34 +4,37 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Post details</h2>
-
+<font color="blue"><h2>@Html.DisplayFor(model => model.Title) </h2></font>
+<h3>@Html.DisplayFor(model => model.Text)</h3>
+<b>By: @Html.DisplayFor(model => model.Author_Name)</b>
+<br />Date: @Html.DisplayFor(model => model.PublishedDate)
 <div>
     <dl class="dl-horizontal">
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.PublishedDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PublishedDate)
+
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+        @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Title)
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Author_Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Author_Name)
+
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Text)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Text)
-        </dd>
+
+        </dd>*@
+        <br />
         <dt>
             @Html.DisplayNameFor(model => model.UrlImage)
         </dt>
