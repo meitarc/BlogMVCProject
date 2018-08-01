@@ -22,15 +22,15 @@ namespace ProjMeitarBorisOrel.Models
         [Required(ErrorMessage = "Last Name  is required")]
         [Display(Name = "Last Name")]
         public string Last_Name { get; set; }
-
+        [Required(ErrorMessage = "Email  is required")]
+        public string Email { get; set; }
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Display(Name = "Admin?")]
         public bool Is_Admin { get; set; }
-        [Required(ErrorMessage = "Email  is required")]
-        public string Email { get; set; }
+       
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         

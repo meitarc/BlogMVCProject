@@ -76,7 +76,7 @@ namespace ProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin,Email")] User user)
+        public async Task<IActionResult> Create([Bind("ID,User_Name,First_Name,Last_Name,Email,Password,Is_Admin")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -108,7 +108,7 @@ namespace ProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,User_Name,First_Name,Last_Name,Password,Is_Admin,Email")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,User_Name,First_Name,Last_Name,Email,Password,Is_Admin")] User user)
         {
             if (id != user.ID)
             {
