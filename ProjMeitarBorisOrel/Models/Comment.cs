@@ -8,7 +8,7 @@ namespace ProjMeitarBorisOrel.Models
     public class Comment
     {
         private DateTime _date = DateTime.Now;
-
+        
         public int ID { get; set; }
         public int PostID { get; set; }
         public int UserID { get; set; }
