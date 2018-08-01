@@ -16,7 +16,7 @@ namespace BlogProjMeitarBorisOrel.Models
 
         [Display(Name = "Published Date")]
         public DateTime PublishedDate { get { return _date; } set { _date = value; } }
-
+         
         [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }
 
