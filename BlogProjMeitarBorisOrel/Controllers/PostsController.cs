@@ -10,13 +10,14 @@ using BlogProjMeitarBorisOrel.Models;
 
 namespace BlogProjMeitarBorisOrel.Controllers
 {
+    //
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        
         public PostsController(ApplicationDbContext context)
         {
-            _context = context;
+            _context = context;//
         }
 
         // GET: Posts
