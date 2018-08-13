@@ -29,6 +29,10 @@ namespace BlogProjMeitarBorisOrel.Models
 
         public string UrlImage { get; set; }
         public int NumOfLikes { get; set; }
+
+        public double Lat { get; set; }
+        public double Lng { get; set; }
+
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
     }
