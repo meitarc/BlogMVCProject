@@ -14,12 +14,14 @@ namespace BlogProjMeitarBorisOrel.Models
         public int UserID { get; set; }
         [Display(Name = "Published Date")]
 
+        
+
         public DateTime PublishedDate { get { return _date; } set { _date = value; } }
         [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }
         [Required(ErrorMessage = "Author Name is required")]
         [Display(Name = "Author Name")]
-
+        
         public string Author_Name { get; set; }
         [Required(ErrorMessage = "Text is required")]
         public string Text { get; set; }

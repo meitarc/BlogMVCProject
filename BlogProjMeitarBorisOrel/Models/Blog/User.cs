@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +16,9 @@ namespace BlogProjMeitarBorisOrel.Models
         [StringLength(15, MinimumLength = 3, ErrorMessage = "User Name must be between 3 and 15 characters")]
         [Display(Name = "User Name")]
         public string User_Name { get; set; }
+
+        [NotMapped]
+        public int Counter { get; set; }
 
         [Required(ErrorMessage = "First Name is required")]
         [Display(Name = "First Name")]
