@@ -134,7 +134,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,PublishedDate,Title,Author_Name,Text,UrlImage")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
         {
             if (id != post.ID)
             {
