@@ -65,10 +65,10 @@
                 @Html.DisplayFor(modelItem => item.NumOfLikes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Post.Author_Name)
+                @Html.DisplayFor(modelItem => item.Post.ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.ConfirmPassword)
+                @Html.DisplayFor(modelItem => item.User.ID)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
