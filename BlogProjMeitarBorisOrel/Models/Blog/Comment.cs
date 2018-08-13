@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,6 +14,8 @@ namespace BlogProjMeitarBorisOrel.Models
         public int ID { get; set; }
         public int PostID { get; set; }
         public int UserID { get; set; }
+        [NotMapped]
+        public int Counter { get; set; }
 
         [Display(Name = "Published Date")]
         public DateTime PublishedDate { get { return _date; } set { _date = value; } }

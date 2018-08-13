@@ -41,10 +41,50 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
                     });
                 }
-            
+
                 return View(group);
             }
-            else { 
+            else if (gBy == "title")
+            {
+                var userNamesByID =
+                   from u in _context.Post
+                   group u by u.Title into g
+                   select new { Title = g.Key, count = g.Count(), g.First().Author_Name };
+                var group = new List<Post>();
+                foreach (var t in userNamesByID)
+                {
+                    group.Add(new Post()
+                    {
+                        Title = t.Title,
+                        Counter = t.count,
+                        Author_Name = t.Author_Name
+
+                    });
+                }
+
+                return View(group);
+            }else if (jBy == "user")
+            {
+                var join =
+                from u in _context.Post
+
+                join p in _context.User on u.UserID equals p.ID
+
+                select new { u.Author_Name, u.Title };
+
+                var UserList = new List<Post>();
+                foreach (var t in join)
+                {
+                    UserList.Add(new Post()
+                    {
+                        Title = t.Title,                   
+                        Author_Name = t.Author_Name
+                    });
+                }
+                return View(UserList);
+            }
+            else
+            { 
 
             var posts = from s in _context.Post
                         select s;
