@@ -55,7 +55,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             };
         }
         // GET: Users
-        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3)
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
         {
             //Init();
 
@@ -72,23 +72,84 @@ namespace BlogProjMeitarBorisOrel.Controllers
             //        Counter=t.count
             //    });
             //}
-            var userNamesByID =
-                  from u in _context.User
-                  group u by u.First_Name into g
-                  select new { First_Name = g.Key, count = g.Count(),g.First().Last_Name };
-            var group = new List<User>();
-            foreach (var t in userNamesByID)
+            if (gBy == "fname")
             {
-                group.Add(new User()
+                   var userNamesByID =
+                      from u in _context.User
+                      group u by u.First_Name into g
+                      select new { First_Name = g.Key, count = g.Count(), g.First().Last_Name };
+                var group = new List<User>();
+                foreach (var t in userNamesByID)
                 {
-                    First_Name = t.First_Name,
-                    Counter = t.count,
-                    Last_Name=t.Last_Name
-                });
+                    group.Add(new User()
+                    {
+                        First_Name = t.First_Name,
+                        Counter = t.count,
+                        Last_Name = t.Last_Name
+                    });
+                }
+                return View(group);
+            }else if(gBy=="lname")
+            {
+                var userNamesByID =
+                      from u in _context.User
+                      group u by u.Last_Name into g
+                      select new { First_Name = g.Key, count = g.Count(), g.First().Last_Name };
+                var group = new List<User>();
+                foreach (var t in userNamesByID)
+                {
+                    group.Add(new User()
+                    {
+                        First_Name = t.First_Name,
+                        Counter = t.count,
+                        Last_Name = t.Last_Name
+                    });
+                }
+                return View(group);
             }
+            else if(jBy=="post")
+            {
+                var join =
+                from u in _context.User
+                join p in _context.Post on u.ID equals p.UserID
+                select new { u.User_Name, u.First_Name };
+
+                var UserList = new List<User>();
+                foreach (var t in join)
+                {
+                    UserList.Add(new User()
+                    {
+                        User_Name = t.User_Name,
+                        First_Name = t.First_Name
+                    });
+                }
+                return View(UserList);
+            }
+            else
+            {
+
+            var users = from s in _context.User
+                        select s;
 
 
-              return View(group);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                users = users.Where(s => s.User_Name.Contains(searchString));
+                users = users.OrderBy(s => s.User_Name);
+            }
+            if (!String.IsNullOrEmpty(searchString2))
+            {
+                users = users.Where(s => s.First_Name.Contains(searchString2));
+                users = users.OrderBy(s => s.First_Name);
+            }
+            if (!String.IsNullOrEmpty(searchString3))
+            {
+                users = users.Where(s => s.Last_Name.Contains(searchString3));
+                users = users.OrderBy(s => s.Last_Name);
+            }
+                return View(users.ToList());
+            }
+              
             /*var join =
                 from u in _UserList
                 join p in _PostList on u.ID equals p.UserID
@@ -105,29 +166,9 @@ namespace BlogProjMeitarBorisOrel.Controllers
             }
             return View(UserList);*/
 
-            //    var users = from s in _context.User
-            //                select s;
 
 
-            //    if (!String.IsNullOrEmpty(searchString))
-            //    {
-            //        users = users.Where(s => s.User_Name.Contains(searchString));
-            //        users = users.OrderBy(s => s.User_Name);
-            //    }
-            //    if (!String.IsNullOrEmpty(searchString2))
-            //    {
-            //        users = users.Where(s => s.First_Name.Contains(searchString2));
-            //        users = users.OrderBy(s => s.First_Name);
-            //    }
-            //    if (!String.IsNullOrEmpty(searchString3))
-            //    {
-            //        users = users.Where(s => s.Last_Name.Contains(searchString3));
-            //        users = users.OrderBy(s => s.Last_Name);
-            //    }
-            //    return View(users.ToList());
-
-
-            // return View(await _context.User.ToListAsync());
+            //return View(await _context.User.ToListAsync());
         }
 
         // GET: Users/Details/5

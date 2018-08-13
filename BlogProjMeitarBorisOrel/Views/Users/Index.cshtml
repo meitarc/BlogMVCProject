@@ -11,12 +11,29 @@
 </p>
 @using (Html.BeginForm())
 {
-    <p>
-        Find by UserName: @Html.TextBox("SearchString")
-        First Name: @Html.TextBox("SearchString2")
-        Last Name: @Html.TextBox("SearchString3")
-        <input type="submit" value="Search" />
-    </p>
+<p>
+    Find by UserName: @Html.TextBox("SearchString")
+    First Name: @Html.TextBox("SearchString2")
+    Last Name: @Html.TextBox("SearchString3")
+    <input type="submit" value="Search" />
+
+
+    <select name="gBy">
+        <option value="">No Group</option>
+        <option value="fname">First Name</option>
+        <option value="lname">Last name</option>
+    </select>
+
+    <input type="submit" value="groupBy" />
+
+    <select name="jBy">
+        <option value="">No Join</option>
+        <option value="post">Post</option>
+
+    </select>
+
+    <input type="submit" value="JoinBy" />
+</p>
 }
 <table class="table">
     <thead>
