@@ -20,30 +20,93 @@ namespace BlogProjMeitarBorisOrel.Controllers
         }
 
         // GET: Comments
-        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3)
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
         {
-            var comms = from s in _context.Comment
-                        select s;
-
-            if (!String.IsNullOrEmpty(searchString))
+            if (gBy == "Aname")
             {
-                comms = comms.Where(s => s.Title.Contains(searchString));
-            }
+                var userNamesByID =
+                   from u in _context.Comment
+                   group u by u.Author_Name into g
+                   select new { Author_Name = g.Key, count = g.Count(), g.First().Title };
+                var group = new List<Comment>();
+                foreach (var t in userNamesByID)
+                {
+                    group.Add(new Comment()
+                    {
+                        Author_Name = t.Author_Name,
+                        Counter = t.count,
+                        Title = t.Title
 
-            if (!String.IsNullOrEmpty(searchString2))
+                    });
+                }
+
+                return View(group);
+            }
+            else if (gBy == "title")
             {
-                comms = comms.Where(s => s.Text.Contains(searchString2));
-            }
+                var userNamesByID =
+                   from u in _context.Comment
+                   group u by u.Title into g
+                   select new { Title = g.Key, count = g.Count(), g.First().Author_Name };
+                var group = new List<Comment>();
+                foreach (var t in userNamesByID)
+                {
+                    group.Add(new Comment()
+                    {
+                        Title = t.Title,
+                        Counter = t.count,
+                        Author_Name = t.Author_Name
 
-            if (!String.IsNullOrEmpty(searchString3))
+                    });
+                }
+
+                return View(group);
+            }
+            else if (jBy == "user")
             {
-                comms = comms.Where(s => s.Author_Name.Contains(searchString3));
+                var join =
+                from u in _context.Comment
+
+                join p in _context.Post on u.UserID equals p.UserID
+
+                select new { u.Author_Name, u.Title };
+
+                var UserList = new List<Comment>();
+                foreach (var t in join)
+                {
+                    UserList.Add(new Comment()
+                    {
+                        Title = t.Title,
+                        Author_Name = t.Author_Name
+                    });
+                }
+                return View(UserList);
             }
+            else
+            {
+                var comms = from s in _context.Comment
+                            select s;
 
-            return View(comms.ToList());
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    comms = comms.Where(s => s.Title.Contains(searchString));
+                }
 
-            //var applicationDbContext = _context.Comment.Include(c => c.Post).Include(c => c.User);
-            //return View(await applicationDbContext.ToListAsync());
+                if (!String.IsNullOrEmpty(searchString2))
+                {
+                    comms = comms.Where(s => s.Text.Contains(searchString2));
+                }
+
+                if (!String.IsNullOrEmpty(searchString3))
+                {
+                    comms = comms.Where(s => s.Author_Name.Contains(searchString3));
+                }
+
+                return View(comms.ToList());
+
+                //var applicationDbContext = _context.Comment.Include(c => c.Post).Include(c => c.User);
+                //return View(await applicationDbContext.ToListAsync());
+            }
         }
 
         // GET: Comments/Details/5
