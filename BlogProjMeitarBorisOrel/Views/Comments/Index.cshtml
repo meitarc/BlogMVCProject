@@ -34,6 +34,9 @@
                 @Html.DisplayNameFor(model => model.Text)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.NumOfLikes)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Post)
             </th>
             <th>
@@ -45,31 +48,34 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PublishedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Text)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Post.Author_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.ConfirmPassword)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumOfLikes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Post.Author_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.ConfirmPassword)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

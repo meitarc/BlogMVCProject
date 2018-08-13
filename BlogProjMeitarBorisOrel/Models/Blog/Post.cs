@@ -28,6 +28,7 @@ namespace BlogProjMeitarBorisOrel.Models
         [Display(Name = "Url Image")]
 
         public string UrlImage { get; set; }
+        public int NumOfLikes { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
     }
