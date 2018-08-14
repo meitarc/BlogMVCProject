@@ -54,42 +54,101 @@
             @Html.DisplayFor(model => model.User.ID)
         </dd>
     </dl>
-</div>
 
 
-@*google maps*@
 
-<script>
+    <h2>new api!!</h2>
+    <p id="reply"></p>
+    <p id="temp"></p>
+    <p id="humid"></p>
+    <button>click me</button>
+
+
+
+
+
+    @*google maps*@
+
+    <script>
     var mylat =@Model.Lat;
     var mylng =@Model.Lng;
-</script>
+    </script>
 
-<div id="map" style="width:100%;height:500px"></div>
-<script>
-    function myMap() {
-        var myCenter = new google.maps.LatLng(mylat, mylng);
-        
-        var mapCanvas = document.getElementById("map");
-        var mapOptions = { center: myCenter, zoom: 8 };
-        var map = new google.maps.Map(mapCanvas, mapOptions);
-        var marker = new google.maps.Marker({ position: myCenter });
-        marker.setMap(map);
-        
+    <div id="map" style="width:100%;height:500px"></div>
+    <script>
+        function myMap() {
+            var myCenter = new google.maps.LatLng(mylat, mylng);
+
+            var mapCanvas = document.getElementById("map");
+            var mapOptions = { center: myCenter, zoom: 8 };
+            var map = new google.maps.Map(mapCanvas, mapOptions);
+            var marker = new google.maps.Marker({ position: myCenter });
+            marker.setMap(map);
+
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUm-xJ8zxKG2tILVdLTFDKADf0dmqJ7wo&callback=myMap"></script>
+
+    @*Weather API*@
+
+
+    <script>
+   // var weather = Object();
+    var wlat = @Model.Lat;
+    var wlng = @Model.Lng;
+    $(document).ready(function () {
+        $("button").click(function () {
+           // $.get("https://api.openweathermap.org/data/2.5/weather?lat= 35&lon=139&APPID=c4d13834034b7d4cbb1de048544b6831", function (response) {
+            $.get("https://api.openweathermap.org/data/2.5/weather?lat="+(mylat)+"&lon="+(mylat)+"&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
+
+            //response
+                //$.get("https://api.openweathermap.org/data/2.5/weather?lat="+wlat+&APPID=c4d13834034b7d4cbb1de048544b6831", function (response) {
+
+                console.log(response);
+                $("#reply").text(response);
+                $("#temp").text(response.main.temp);
+                $("#humid").text(response.main.humidity);
+
+            });
+        });
+    });
+
+    </script>
+    @*$.get("http://api.openweathermap.org/data/2.5/weather?lat={" + wlat + "}&lon={" + wlng + "}&APPID=c4d13834034b7d4cbb1de048544b6831", function (response) {*@
+
+
+    @*<script>
+
+        var weather = Object();
+        $(document).ready(function () {
+            $("button").click(function () {
+               // $.get("http://api.openweathermap.org/data/2.5/weather?lat={" + mylat + "}&lon={" + mylng + "}&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
+                $.get("http://api.openweathermap.org/data/2.5/weather?lat={31.976899}&lon={34.771741}&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
+                //response
+                    console.log(response);
+                    weather = ko.mapping.fromJS(response);  //populate the weather object
+                    ko.applyBindings(weather);
+
+                });
+            });
+        });*@
+
+    //$.get("http://api.openweathermap.org/data/2.5/weather?lat={" + mylat + "}&lon={" + mylng + "}&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
+    //    //response
+    //    console.log(response);
+    //    weather = ko.mapping.fromJS(response);  //populate the weather object
+    //    ko.applyBindings(weather);
+    </script>
+
+    @foreach (var item in Model.Comments)
+    {
+        <br />
+        <b>Comment: </b>@Html.DisplayFor(modelItem => item.Text)
     }
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUm-xJ8zxKG2tILVdLTFDKADf0dmqJ7wo&callback=myMap"></script>
 
 
-
-@foreach (var item in Model.Comments)
-{
-    <br />
-    <b>Comment: </b>@Html.DisplayFor(modelItem => item.Text)
-}
-
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
