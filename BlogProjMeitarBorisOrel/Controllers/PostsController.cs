@@ -95,6 +95,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
             if (!String.IsNullOrEmpty(searchString2))
             {
+                  
                 posts = posts.Where(s => s.Author_Name.Contains(searchString2));
             }
 
@@ -110,6 +111,10 @@ namespace BlogProjMeitarBorisOrel.Controllers
         }
 
         // GET: Posts/Details/5
+        public void AddLike(Post post)
+        {
+            post.NumOfLikes++;
+        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -124,7 +129,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             {
                 return NotFound();
             }
-
+            AddLike(post);
             return View(post);
         }
 
