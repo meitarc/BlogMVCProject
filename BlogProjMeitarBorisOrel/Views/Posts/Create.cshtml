@@ -48,6 +48,7 @@
                 <label asp-for="Lng" class="control-label"></label>
                 <input asp-for="Lng" class="form-control" />
                 <span asp-validation-for="Lng" class="text-danger"></span>
+                
             </div>
 
 
@@ -63,9 +64,12 @@
 
         google.maps.event.addListener(map, 'click', function (event) {
 
-           // alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+            alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
             var mylat =event.latLng.lat();
-            var mylng =event.latLng.lng();
+            var mylng = event.latLng.lng();
+            document.getElementById("Lat").value = mylat;
+
+            document.getElementById("Lng").value = mylng;
         });
         marker.setMap(map);
 
