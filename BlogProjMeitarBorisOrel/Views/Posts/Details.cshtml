@@ -68,11 +68,13 @@
 <script>
     function myMap() {
         var myCenter = new google.maps.LatLng(mylat, mylng);
+        
         var mapCanvas = document.getElementById("map");
         var mapOptions = { center: myCenter, zoom: 8 };
         var map = new google.maps.Map(mapCanvas, mapOptions);
         var marker = new google.maps.Marker({ position: myCenter });
         marker.setMap(map);
+        
     }
 </script>
 
