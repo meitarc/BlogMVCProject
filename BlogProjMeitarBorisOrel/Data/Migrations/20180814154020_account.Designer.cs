@@ -11,9 +11,10 @@ using System;
 namespace BlogProjMeitarBorisOrel.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180814154020_account")]
+    partial class account
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,22 +31,16 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Country");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("First_Name")
-                        .IsRequired();
-
-                    b.Property<string>("Last_Name")
-                        .IsRequired();
-
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<int>("MyProperty");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -84,8 +79,6 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<string>("Author_Name")
                         .IsRequired();
 
@@ -105,8 +98,6 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasIndex("PostID");
 
                     b.HasIndex("UserID");
@@ -118,8 +109,6 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("Author_Name")
                         .IsRequired();
@@ -143,8 +132,6 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<int>("UserID");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("UserID");
 
@@ -292,10 +279,6 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
 
             modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.Comment", b =>
                 {
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser")
-                        .WithMany("Comments")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("BlogProjMeitarBorisOrel.Models.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostID")
@@ -309,10 +292,6 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
 
             modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.Post", b =>
                 {
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser")
-                        .WithMany("Posts")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("BlogProjMeitarBorisOrel.Models.User", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserID")

@@ -221,7 +221,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { First_Name=model.First_Name,Last_Name=model.Last_Name, Country=model.Country, UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
