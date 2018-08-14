@@ -21,16 +21,16 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Country)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.UserName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.NormalizedUserName)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.NormalizedEmail)
                 </th>
                 <th>
@@ -50,11 +50,11 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.TwoFactorEnabled)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.LockoutEnd)
                 </th>
                 <th>
@@ -62,7 +62,7 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.AccessFailedCount)
-                </th>
+                </th>*@
             <th></th>
         </tr>
     </thead>
@@ -78,16 +78,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Country)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NormalizedUserName)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.NormalizedEmail)
             </td>
             <td>
@@ -107,11 +107,11 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumberConfirmed)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.TwoFactorEnabled)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.LockoutEnd)
             </td>
             <td>
@@ -119,7 +119,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AccessFailedCount)
-            </td>
+            </td>*@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
