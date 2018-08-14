@@ -40,7 +40,8 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
         [TempData]
         public string ErrorMessage { get; set; }
-
+        
+     
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
