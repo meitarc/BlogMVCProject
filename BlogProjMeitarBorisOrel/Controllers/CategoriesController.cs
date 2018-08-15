@@ -24,7 +24,27 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // GET: Categories
         public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
         {
-            if (gBy == "Cname")
+            if (gBy == "CDesc")
+            {
+                var userNamesByID =
+                   from u in _context.Categories
+                   group u by u.Category_Description into g
+                   select new { Category_Description = g.Key, count = g.Count(), g.First().Category_Name };
+                var group = new List<Categories>();
+                foreach (var t in userNamesByID)
+                {
+                    group.Add(new Categories()
+                    {
+                        Category_Name = t.Category_Name,
+                        Counter = t.count,
+                        Category_Description = t.Category_Description
+
+                    });
+                }
+
+                return View(group);
+            }
+            else if (gBy == "Cname")
             {
                 var userNamesByID =
                    from u in _context.Categories
@@ -44,46 +64,26 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
                 return View(group);
             }
-            else if (gBy == "title")
+            else if (jBy == "post")
             {
-                var userNamesByID =
-                   from u in _context.Post
-                   group u by u.Title into g
-                   select new { Title = g.Key, count = g.Count(), g.First().Author_Name };
-                var group = new List<Post>();
-                foreach (var t in userNamesByID)
-                {
-                    group.Add(new Post()
-                    {
-                        Title = t.Title,
-                        Counter = t.count,
-                        Author_Name = t.Author_Name
+                var join =
+                from u in _context.Categories
 
+                join p in _context.Post on u.ID equals p.categoryID
+
+                select new { u.Category_Name, u.Category_Description };
+
+                var UserList = new List<Categories>();
+                foreach (var t in join)
+                {
+                    UserList.Add(new Categories()
+                    {
+                        Category_Name = t.Category_Name,
+                        Category_Description = t.Category_Description
                     });
                 }
-
-                return View(group);
+                return View(UserList);
             }
-            //else if (jBy == "user")
-            //{
-            //    var join =
-            //    from u in _context.Post
-
-            //    join p in _context.User on u.UserID equals p.ID
-
-            //    select new { u.Author_Name, u.Title };
-
-            //    var UserList = new List<Post>();
-            //    foreach (var t in join)
-            //    {
-            //        UserList.Add(new Post()
-            //        {
-            //            Title = t.Title,                   
-            //            Author_Name = t.Author_Name
-            //        });
-            //    }
-            //    return View(UserList);
-            //}
             else
             {
 
