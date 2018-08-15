@@ -56,10 +56,10 @@
                 @Html.DisplayNameFor(model => model.NumOfLikes)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Post)
+                @Html.DisplayNameFor(model => model.PostID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.UserID)
             </th>
             <th></th>
         </tr>
@@ -87,10 +87,10 @@
                 @Html.DisplayFor(modelItem => item.NumOfLikes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Post.ID)
+                @Html.DisplayFor(modelItem => item.PostID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.ID)
+                @Html.DisplayFor(modelItem => item.UserID)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

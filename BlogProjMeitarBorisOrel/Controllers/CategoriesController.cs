@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlogProjMeitarBorisOrel.Data;
+using BlogProjMeitarBorisOrel.Models;
+
 using BlogProjMeitarBorisOrel.Models.Blog;
 
 namespace BlogProjMeitarBorisOrel.Controllers
@@ -34,6 +36,8 @@ namespace BlogProjMeitarBorisOrel.Controllers
             }
 
             var categories = await _context.Categories
+                .Include(c => c.Posts)
+                
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (categories == null)
             {
