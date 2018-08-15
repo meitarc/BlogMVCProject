@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlogProjMeitarBorisOrel.Models.Blog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -37,5 +38,6 @@ namespace BlogProjMeitarBorisOrel.Models
 
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
+        public virtual Categories Categories { get; set; }
     }
 }
