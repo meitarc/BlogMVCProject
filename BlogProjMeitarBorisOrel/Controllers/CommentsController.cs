@@ -62,26 +62,26 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
                 return View(group);
             }
-            else if (jBy == "user")
-            {
-                var join =
-                from u in _context.Comment
+            //else if (jBy == "user")
+            //{
+            //    var join =
+            //    from u in _context.Comment
 
-                join p in _context.Post on u.UserID equals p.UserID
+            //    join p in _context.Post on u.UserID equals p.UserID
 
-                select new { u.Author_Name, u.Title };
+            //    select new { u.Author_Name, u.Title };
 
-                var UserList = new List<Comment>();
-                foreach (var t in join)
-                {
-                    UserList.Add(new Comment()
-                    {
-                        Title = t.Title,
-                        Author_Name = t.Author_Name
-                    });
-                }
-                return View(UserList);
-            }
+            //    var UserList = new List<Comment>();
+            //    foreach (var t in join)
+            //    {
+            //        UserList.Add(new Comment()
+            //        {
+            //            Title = t.Title,
+            //            Author_Name = t.Author_Name
+            //        });
+            //    }
+            //    return View(UserList);
+            //}
             else
             {
                 var comms = from s in _context.Comment
@@ -132,8 +132,8 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // GET: Comments/Create
         public IActionResult Create()
         {
-            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Author_Name");
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ConfirmPassword");
+            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title");
+            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "User_Name");
             return View();
         }
 
@@ -150,8 +150,8 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Author_Name", comment.PostID);
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ConfirmPassword", comment.UserID);
+            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title", comment.PostID);
+            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "User_Name", comment.UserID);
             return View(comment);
         }
 
@@ -168,8 +168,8 @@ namespace BlogProjMeitarBorisOrel.Controllers
             {
                 return NotFound();
             }
-            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Author_Name", comment.PostID);
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ConfirmPassword", comment.UserID);
+            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title", comment.PostID);
+            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "User_Name", comment.UserID);
             return View(comment);
         }
 
@@ -205,8 +205,8 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Author_Name", comment.PostID);
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ConfirmPassword", comment.UserID);
+            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title", comment.PostID);
+            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "User_Name", comment.UserID);
             return View(comment);
         }
 

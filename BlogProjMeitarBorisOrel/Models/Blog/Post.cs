@@ -13,7 +13,7 @@ namespace BlogProjMeitarBorisOrel.Models
         private DateTime _date = DateTime.Now;
         [Key]
         public int ID { get; set; }
-        public int UserID { get; set; }
+        public int categoryID { get; set; }
 
         [NotMapped]
         public int Counter { get; set; }

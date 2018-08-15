@@ -65,7 +65,7 @@
                 @Html.DisplayNameFor(model => model.Lng)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.categoryID)
             </th>
             <th></th>
         </tr>
@@ -102,7 +102,7 @@
                 @Html.DisplayFor(modelItem => item.Lng)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.ConfirmPassword)
+                @Html.DisplayFor(modelItem => item.Categories.Category_Name)
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.ID">View Post</a> |
