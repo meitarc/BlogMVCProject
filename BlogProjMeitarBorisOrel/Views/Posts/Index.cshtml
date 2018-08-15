@@ -25,9 +25,10 @@
 
         <input type="submit" value="Group By" />
 
-        <select name="jBy">
-            <option value="">No Join</option>
-            <option value="user">Users</option>
+    <select name="jBy">
+        <option value="">No Join</option>
+        <option value="category">Categories</option>
+        <option value="comment">Comments</option>
 
         </select>
 
@@ -65,7 +66,7 @@
                 @Html.DisplayNameFor(model => model.Lng)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.categoryID)
             </th>
             <th></th>
         </tr>
@@ -73,43 +74,43 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PublishedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author_Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Counter)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Text)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UrlImage)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumOfLikes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Lng)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.ConfirmPassword)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.ID">View Post</a> |
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Counter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UrlImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumOfLikes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lng)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoryID)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ID">View Post</a> |
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
         }
 
 

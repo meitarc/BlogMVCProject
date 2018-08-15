@@ -24,12 +24,12 @@ namespace BlogProjMeitarBorisOrel.Controllers
         {
             _PostList = new List<Post>
             {
-                new Post{ID=1,UserID=7,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="aaa",Author_Name="ggg",Text="mmm",UrlImage="sss"},
-                new Post{ID=2,UserID=8,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="bbb",Author_Name="hhh",Text="nnn",UrlImage="ttt"},
-                new Post{ID=3,UserID=9,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="ccc",Author_Name="iii",Text="ooo",UrlImage="uuu"},
-                new Post{ID=4,UserID=10,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="ddd",Author_Name="jjj",Text="ppp",UrlImage="yyy"},
-                new Post{ID=5,UserID=11,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="eee",Author_Name="kkk",Text="qqq",UrlImage="www"},
-                new Post{ID=6,UserID=12,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="fff",Author_Name="lll",Text="rrr",UrlImage="xxx"}
+                new Post{ID=1,categoryID=7,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="aaa",Author_Name="ggg",Text="mmm",UrlImage="sss"},
+                new Post{ID=2,categoryID=8,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="bbb",Author_Name="hhh",Text="nnn",UrlImage="ttt"},
+                new Post{ID=3,categoryID=9,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="ccc",Author_Name="iii",Text="ooo",UrlImage="uuu"},
+                new Post{ID=4,categoryID=10,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="ddd",Author_Name="jjj",Text="ppp",UrlImage="yyy"},
+                new Post{ID=5,categoryID=11,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="eee",Author_Name="kkk",Text="qqq",UrlImage="www"},
+                new Post{ID=6,categoryID=12,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="fff",Author_Name="lll",Text="rrr",UrlImage="xxx"}
             };
             _CommentList = new List<Comment>
             {
@@ -107,24 +107,24 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 }
                 return View(group);
             }
-            else if(jBy=="post")
-            {
-                var join =
-                from u in _context.User
-                join p in _context.Post on u.ID equals p.UserID
-                select new { u.User_Name, u.First_Name };
+            //else if(jBy=="post")
+            //{
+            //    var join =
+            //    from u in _context.User
+            //    join p in _context.Post on u.ID equals p.UserID
+            //    select new { u.User_Name, u.First_Name };
 
-                var UserList = new List<User>();
-                foreach (var t in join)
-                {
-                    UserList.Add(new User()
-                    {
-                        User_Name = t.User_Name,
-                        First_Name = t.First_Name
-                    });
-                }
-                return View(UserList);
-            }
+            //    var UserList = new List<User>();
+            //    foreach (var t in join)
+            //    {
+            //        UserList.Add(new User()
+            //        {
+            //            User_Name = t.User_Name,
+            //            First_Name = t.First_Name
+            //        });
+            //    }
+            //    return View(UserList);
+            //}
             else
             {
 

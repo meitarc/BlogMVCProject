@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlogProjMeitarBorisOrel.Models.Blog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,7 +13,7 @@ namespace BlogProjMeitarBorisOrel.Models
         private DateTime _date = DateTime.Now;
         [Key]
         public int ID { get; set; }
-        public int UserID { get; set; }
+        public int categoryID { get; set; }
 
         [NotMapped]
         public int Counter { get; set; }
@@ -37,5 +38,6 @@ namespace BlogProjMeitarBorisOrel.Models
 
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
+        public virtual Categories Categories { get; set; }
     }
 }

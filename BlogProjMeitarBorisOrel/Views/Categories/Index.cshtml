@@ -1,0 +1,85 @@
+﻿@model IEnumerable<BlogProjMeitarBorisOrel.Models.Blog.Categories>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Categories</h2>
+
+<p>
+    <a asp-action="Create">Add a new category</a>
+</p>
+@using (Html.BeginForm())
+{
+<p>
+    Find by Category Name: @Html.TextBox("SearchString")
+    Category Description: @Html.TextBox("SearchString2")
+    First Name: @Html.TextBox("SearchString3")
+    <input type="submit" value="Search" />
+
+    <select name="gBy">
+        <option value="">No Group</option>
+        <option value="Cname">Category Name</option>
+        <option value="CDesc">Category Description</option>
+    </select>
+
+    <input type="submit" value="Group By" />
+
+    <select name="jBy">
+        <option value="">No Join</option>
+        <option value="post">Posts</option>
+
+    </select>
+
+    <input type="submit" value="Join By" />
+</p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Last_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Counter)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.First_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Last_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Counter)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

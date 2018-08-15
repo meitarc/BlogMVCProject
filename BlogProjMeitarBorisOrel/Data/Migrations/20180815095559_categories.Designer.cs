@@ -11,9 +11,10 @@ using System;
 namespace BlogProjMeitarBorisOrel.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180815095559_categories")]
+    partial class categories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,9 +164,7 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
 
                     b.Property<string>("UrlImage");
 
-                    b.Property<int?>("UserID");
-
-                    b.Property<int>("categoryID");
+                    b.Property<int>("UserID");
 
                     b.HasKey("ID");
 
@@ -340,13 +339,14 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                         .WithMany("Posts")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.Blog.Categories", "Categories")
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.Blog.Categories")
                         .WithMany("Posts")
                         .HasForeignKey("CategoriesID");
 
                     b.HasOne("BlogProjMeitarBorisOrel.Models.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using BlogProjMeitarBorisOrel.Models;
+using BlogProjMeitarBorisOrel.Models.Blog;
 
 namespace BlogProjMeitarBorisOrel.Data
 {
@@ -30,6 +31,8 @@ namespace BlogProjMeitarBorisOrel.Data
         public DbSet<BlogProjMeitarBorisOrel.Models.User> User { get; set; }
 
         public DbSet<BlogProjMeitarBorisOrel.Models.ApplicationUser> User2 { get; set; }
+
+        public DbSet<BlogProjMeitarBorisOrel.Models.Blog.Categories> Categories { get; set; }
 
     }
 }
