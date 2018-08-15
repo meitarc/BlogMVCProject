@@ -62,26 +62,26 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
                 return View(group);
             }
-            //else if (jBy == "user")
-            //{
-            //    var join =
-            //    from u in _context.Comment
+            else if (jBy == "post")
+            {
+                var join =
+                from u in _context.Comment
 
-            //    join p in _context.Post on u.UserID equals p.UserID
+                join p in _context.Post on u.PostID equals p.ID
 
-            //    select new { u.Author_Name, u.Title };
+                select new { u.Author_Name, u.Title };
 
-            //    var UserList = new List<Comment>();
-            //    foreach (var t in join)
-            //    {
-            //        UserList.Add(new Comment()
-            //        {
-            //            Title = t.Title,
-            //            Author_Name = t.Author_Name
-            //        });
-            //    }
-            //    return View(UserList);
-            //}
+                var UserList = new List<Comment>();
+                foreach (var t in join)
+                {
+                    UserList.Add(new Comment()
+                    {
+                        Title = t.Title,
+                        Author_Name = t.Author_Name
+                    });
+                }
+                return View(UserList);
+            }
             else
             {
                 var comms = from s in _context.Comment

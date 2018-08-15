@@ -65,26 +65,46 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
                 return View(group);
             }
-            //else if (jBy == "user")
-            //{
-            //    var join =
-            //    from u in _context.Post
+            else if (jBy == "category")
+            {
+                var join =
+                from u in _context.Post
 
-            //    join p in _context.User on u.UserID equals p.ID
+                join p in _context.Categories on u.categoryID equals p.ID
 
-            //    select new { u.Author_Name, u.Title };
+                select new { u.Author_Name, u.Title };
 
-            //    var UserList = new List<Post>();
-            //    foreach (var t in join)
-            //    {
-            //        UserList.Add(new Post()
-            //        {
-            //            Title = t.Title,                   
-            //            Author_Name = t.Author_Name
-            //        });
-            //    }
-            //    return View(UserList);
-            //}
+                var UserList = new List<Post>();
+                foreach (var t in join)
+                {
+                    UserList.Add(new Post()
+                    {
+                        Title = t.Title,
+                        Author_Name = t.Author_Name
+                    });
+                }
+                return View(UserList);
+            }
+            else if (jBy == "comment")
+            {
+                var join =
+                from u in _context.Post
+
+                join p in _context.Comment on u.ID equals p.PostID
+
+                select new { u.Author_Name, u.Title };
+
+                var UserList = new List<Post>();
+                foreach (var t in join)
+                {
+                    UserList.Add(new Post()
+                    {
+                        Title = t.Title,
+                        Author_Name = t.Author_Name
+                    });
+                }
+                return View(UserList);
+            }
             else
             { 
 
