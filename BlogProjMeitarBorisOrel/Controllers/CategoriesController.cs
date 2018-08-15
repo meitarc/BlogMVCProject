@@ -22,9 +22,92 @@ namespace BlogProjMeitarBorisOrel.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
         {
-            return View(await _context.Categories.ToListAsync());
+            if (gBy == "Cname")
+            {
+                var userNamesByID =
+                   from u in _context.Categories
+                   group u by u.Category_Name into g
+                   select new { Category_Name = g.Key, count = g.Count(), g.First().Category_Description };
+                var group = new List<Categories>();
+                foreach (var t in userNamesByID)
+                {
+                    group.Add(new Categories()
+                    {
+                        Category_Name = t.Category_Name,
+                        Counter = t.count,
+                        Category_Description = t.Category_Description
+
+                    });
+                }
+
+                return View(group);
+            }
+            else if (gBy == "title")
+            {
+                var userNamesByID =
+                   from u in _context.Post
+                   group u by u.Title into g
+                   select new { Title = g.Key, count = g.Count(), g.First().Author_Name };
+                var group = new List<Post>();
+                foreach (var t in userNamesByID)
+                {
+                    group.Add(new Post()
+                    {
+                        Title = t.Title,
+                        Counter = t.count,
+                        Author_Name = t.Author_Name
+
+                    });
+                }
+
+                return View(group);
+            }
+            //else if (jBy == "user")
+            //{
+            //    var join =
+            //    from u in _context.Post
+
+            //    join p in _context.User on u.UserID equals p.ID
+
+            //    select new { u.Author_Name, u.Title };
+
+            //    var UserList = new List<Post>();
+            //    foreach (var t in join)
+            //    {
+            //        UserList.Add(new Post()
+            //        {
+            //            Title = t.Title,                   
+            //            Author_Name = t.Author_Name
+            //        });
+            //    }
+            //    return View(UserList);
+            //}
+            else
+            {
+
+                var categories = from s in _context.Categories
+                                 select s;
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    categories = categories.Where(s => s.Category_Name.Contains(searchString));
+                }
+
+                if (!String.IsNullOrEmpty(searchString2))
+                {
+
+                    categories = categories.Where(s => s.Category_Description.Contains(searchString2));
+                }
+
+                if (!String.IsNullOrEmpty(searchString3))
+                {
+                    categories = categories.Where(s => s.First_Name.Contains(searchString3));
+                }
+
+                return View(categories.ToList());
+            }
+            //return View(await _context.Categories.ToListAsync());
         }
 
         // GET: Categories/Details/5
@@ -37,7 +120,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
             var categories = await _context.Categories
                 .Include(c => c.Posts)
-                
+
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (categories == null)
             {
