@@ -38,6 +38,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.ApplicationUserID)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PublishedDate)
             </th>
             <th>
@@ -56,10 +59,7 @@
                 @Html.DisplayNameFor(model => model.NumOfLikes)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Post)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.PostID)
             </th>
             <th></th>
         </tr>
@@ -68,6 +68,9 @@
         @foreach (var item in Model)
         {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUserID)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishedDate)
             </td>
@@ -87,11 +90,9 @@
                 @Html.DisplayFor(modelItem => item.NumOfLikes)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Post.ID)
+                @Html.DisplayFor(modelItem => item.PostID)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.ID)
-            </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ID">Details</a> |

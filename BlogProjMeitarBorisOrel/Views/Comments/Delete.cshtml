@@ -12,6 +12,9 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUserID)
+        </dt>
+        <dt>
             @Html.DisplayNameFor(model => model.PublishedDate)
         </dt>
         <dd>
@@ -45,14 +48,9 @@
             @Html.DisplayNameFor(model => model.Post)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Post.Author_Name)
+            @Html.DisplayFor(model => model.Post.Title)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.User.ConfirmPassword)
-        </dd>
+
     </dl>
     
     <form asp-action="Delete">

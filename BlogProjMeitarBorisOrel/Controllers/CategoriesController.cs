@@ -7,59 +7,57 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlogProjMeitarBorisOrel.Data;
 using BlogProjMeitarBorisOrel.Models;
-using Microsoft.AspNetCore.Identity;
+
+using BlogProjMeitarBorisOrel.Models.Blog;
 
 namespace BlogProjMeitarBorisOrel.Controllers
 {
-    public class CommentsController : Controller
+    public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CommentsController(ApplicationDbContext context,UserManager<ApplicationUser> userManager)
+        public CategoriesController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
-
         }
 
-        // GET: Comments
+        // GET: Categories
         public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
         {
-            if (gBy == "Aname")
+            if (gBy == "CDesc")
             {
                 var userNamesByID =
-                   from u in _context.Comment
-                   group u by u.Author_Name into g
-                   select new { Author_Name = g.Key, count = g.Count(), g.First().Title };
-                var group = new List<Comment>();
+                   from u in _context.Categories
+                   group u by u.Category_Description into g
+                   select new { Category_Description = g.Key, count = g.Count(), g.First().Category_Name };
+                var group = new List<Categories>();
                 foreach (var t in userNamesByID)
                 {
-                    group.Add(new Comment()
+                    group.Add(new Categories()
                     {
-                        Author_Name = t.Author_Name,
+                        Category_Name = t.Category_Name,
                         Counter = t.count,
-                        Title = t.Title
+                        Category_Description = t.Category_Description
 
                     });
                 }
 
                 return View(group);
             }
-            else if (gBy == "title")
+            else if (gBy == "Cname")
             {
                 var userNamesByID =
-                   from u in _context.Comment
-                   group u by u.Title into g
-                   select new { Title = g.Key, count = g.Count(), g.First().Author_Name };
-                var group = new List<Comment>();
+                   from u in _context.Categories
+                   group u by u.Category_Name into g
+                   select new { Category_Name = g.Key, count = g.Count(), g.First().Category_Description };
+                var group = new List<Categories>();
                 foreach (var t in userNamesByID)
                 {
-                    group.Add(new Comment()
+                    group.Add(new Categories()
                     {
-                        Title = t.Title,
+                        Category_Name = t.Category_Name,
                         Counter = t.count,
-                        Author_Name = t.Author_Name
+                        Category_Description = t.Category_Description
 
                     });
                 }
@@ -69,51 +67,50 @@ namespace BlogProjMeitarBorisOrel.Controllers
             else if (jBy == "post")
             {
                 var join =
-                from u in _context.Comment
+                from u in _context.Categories
 
-                join p in _context.Post on u.PostID equals p.ID
+                join p in _context.Post on u.ID equals p.categoryID
 
-                select new { u.Author_Name, u.Title };
+                select new { u.Category_Name, u.Category_Description };
 
-                var UserList = new List<Comment>();
+                var UserList = new List<Categories>();
                 foreach (var t in join)
                 {
-                    UserList.Add(new Comment()
+                    UserList.Add(new Categories()
                     {
-                        Title = t.Title,
-                        Author_Name = t.Author_Name
+                        Category_Name = t.Category_Name,
+                        Category_Description = t.Category_Description
                     });
                 }
                 return View(UserList);
             }
             else
             {
-                var comms = from s in _context.Comment
-                            select s;
 
+                var categories = from s in _context.Categories
+                                 select s;
                 if (!String.IsNullOrEmpty(searchString))
                 {
-                    comms = comms.Where(s => s.Title.Contains(searchString));
+                    categories = categories.Where(s => s.Category_Name.Contains(searchString));
                 }
 
                 if (!String.IsNullOrEmpty(searchString2))
                 {
-                    comms = comms.Where(s => s.Text.Contains(searchString2));
+
+                    categories = categories.Where(s => s.Category_Description.Contains(searchString2));
                 }
 
                 if (!String.IsNullOrEmpty(searchString3))
                 {
-                    comms = comms.Where(s => s.Author_Name.Contains(searchString3));
+                    categories = categories.Where(s => s.First_Name.Contains(searchString3));
                 }
 
-                return View(comms.ToList());
-
-                //var applicationDbContext = _context.Comment.Include(c => c.Post).Include(c => c.User);
-                //return View(await applicationDbContext.ToListAsync());
+                return View(categories.ToList());
             }
+            //return View(await _context.Categories.ToListAsync());
         }
 
-        // GET: Comments/Details/5
+        // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -121,50 +118,41 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 return NotFound();
             }
 
-            var comment = await _context.Comment
-                .Include(c => c.Post)
+            var categories = await _context.Categories
+                .Include(c => c.Posts)
+
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (comment == null)
+            if (categories == null)
             {
                 return NotFound();
             }
 
-            return View(comment);
+            return View(categories);
         }
 
-        // GET: Comments/Create
+        // GET: Categories/Create
         public IActionResult Create()
         {
-            if (_userManager.GetUserId(HttpContext.User) != null)
-            {
-                ViewBag.userid = _userManager.GetUserId(HttpContext.User);
-            }
-            else
-            {
-                ViewBag.userid = "Guest";
-            }
-            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title");
             return View();
         }
 
-        // POST: Comments/Create
+        // POST: Categories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ApplicationUserID,PostID,PublishedDate,Title,Author_Name,Text,NumOfLikes")] Comment comment)
+        public async Task<IActionResult> Create([Bind("ID,Category_Name,Category_Description,First_Name,Last_Name")] Categories categories)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(comment);
+                _context.Add(categories);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title", comment.PostID);
-            return View(comment);
+            return View(categories);
         }
 
-        // GET: Comments/Edit/5
+        // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -172,23 +160,22 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 return NotFound();
             }
 
-            var comment = await _context.Comment.SingleOrDefaultAsync(m => m.ID == id);
-            if (comment == null)
+            var categories = await _context.Categories.SingleOrDefaultAsync(m => m.ID == id);
+            if (categories == null)
             {
                 return NotFound();
             }
-            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title", comment.PostID);
-            return View(comment);
+            return View(categories);
         }
 
-        // POST: Comments/Edit/5
+        // POST: Categories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ApplicationUserID,PostID,PublishedDate,Title,Author_Name,Text,NumOfLikes")] Comment comment)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Category_Name,Category_Description,First_Name,Last_Name")] Categories categories)
         {
-            if (id != comment.ID)
+            if (id != categories.ID)
             {
                 return NotFound();
             }
@@ -197,12 +184,12 @@ namespace BlogProjMeitarBorisOrel.Controllers
             {
                 try
                 {
-                    _context.Update(comment);
+                    _context.Update(categories);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CommentExists(comment.ID))
+                    if (!CategoriesExists(categories.ID))
                     {
                         return NotFound();
                     }
@@ -213,11 +200,10 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title", comment.PostID);
-            return View(comment);
+            return View(categories);
         }
 
-        // GET: Comments/Delete/5
+        // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -225,31 +211,30 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 return NotFound();
             }
 
-            var comment = await _context.Comment
-                .Include(c => c.Post)
+            var categories = await _context.Categories
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (comment == null)
+            if (categories == null)
             {
                 return NotFound();
             }
 
-            return View(comment);
+            return View(categories);
         }
 
-        // POST: Comments/Delete/5
+        // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var comment = await _context.Comment.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Comment.Remove(comment);
+            var categories = await _context.Categories.SingleOrDefaultAsync(m => m.ID == id);
+            _context.Categories.Remove(categories);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CommentExists(int id)
+        private bool CategoriesExists(int id)
         {
-            return _context.Comment.Any(e => e.ID == id);
+            return _context.Categories.Any(e => e.ID == id);
         }
     }
 }

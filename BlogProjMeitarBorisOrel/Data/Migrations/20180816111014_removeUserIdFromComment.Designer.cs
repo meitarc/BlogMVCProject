@@ -11,9 +11,10 @@ using System;
 namespace BlogProjMeitarBorisOrel.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180816111014_removeUserIdFromComment")]
+    partial class removeUserIdFromComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,7 +106,7 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserID");
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("Author_Name")
                         .IsRequired();
@@ -126,7 +127,7 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ApplicationUserID");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("PostID");
 
@@ -319,9 +320,9 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
 
             modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.Comment", b =>
                 {
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser", "AppUser")
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser")
                         .WithMany("Comments")
-                        .HasForeignKey("ApplicationUserID");
+                        .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("BlogProjMeitarBorisOrel.Models.Post", "Post")
                         .WithMany("Comments")

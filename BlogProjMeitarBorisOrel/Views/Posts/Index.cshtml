@@ -14,32 +14,36 @@
 </p>
 @using (Html.BeginForm())
 {
-<p>
-    Find by Title: @Html.TextBox("SearchString")
-    Author Name: @Html.TextBox("SearchString2")
-    Text: @Html.TextBox("SearchString3")
-    <input type="submit" value="Search" />
+    <p>
+        Find by Title: @Html.TextBox("SearchString")
+        Author Name: @Html.TextBox("SearchString2")
+        Text: @Html.TextBox("SearchString3")
+        <input type="submit" value="Search" />
 
-    <select name="gBy">
-        <option value="">No Group</option>
-        <option value="Aname">Author Name</option>
-        <option value="title">Title</option>
-    </select>
+        <select name="gBy">
+            <option value="">No Group</option>
+            <option value="Aname">Author Name</option>
+            <option value="title">Title</option>
+        </select>
 
-    <input type="submit" value="Group By" />
+        <input type="submit" value="Group By" />
 
     <select name="jBy">
         <option value="">No Join</option>
-        <option value="user">Users</option>
+        <option value="category">Categories</option>
+        <option value="comment">Comments</option>
 
-    </select>
+        </select>
 
-    <input type="submit" value="Join By" />
-</p>
+        <input type="submit" value="Join By" />
+    </p>
 }
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUserID)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.PublishedDate)
             </th>
@@ -68,7 +72,7 @@
                 @Html.DisplayNameFor(model => model.Lng)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.categoryID)
             </th>
             <th></th>
         </tr>
@@ -77,6 +81,9 @@
         @foreach (var item in Model)
         {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUserID)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishedDate)
             </td>
@@ -105,7 +112,7 @@
                 @Html.DisplayFor(modelItem => item.Lng)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.ConfirmPassword)
+                @Html.DisplayFor(modelItem => item.categoryID)
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.ID">View Post</a> |
@@ -114,5 +121,21 @@
             </td>
         </tr>
         }
+
+
+
     </tbody>
 </table>
+
+<p>D3Graph</p>
+<svg width="960" height="500"></svg>
+@*<script>
+    d3.select('p').text("dddddddd").style('color', 'blue');
+   // d3.selectall();
+    
+
+
+</script>*@
+
+
+

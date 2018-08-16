@@ -11,8 +11,13 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserID" class="control-label"></label>
-                <select asp-for="UserID" class="form-control" asp-items="ViewBag.UserID"></select>
+                <label asp-for="ApplicationUserID" class="control-label"></label>
+                <input readonly asp-for="ApplicationUserID" value="@ViewBag.userid" class="form-control" />
+                <span asp-validation-for="ApplicationUserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="categoryID" class="control-label"></label>
+                <select asp-for="categoryID" class="form-control" asp-items="ViewBag.categoryID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="ApplicationID" class="control-label"></label>
@@ -69,7 +74,7 @@
 
                     google.maps.event.addListener(map, 'click', function (event) {
 
-                        alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+                        //alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
                         var mylat = event.latLng.lat();
                         var mylng = event.latLng.lng();
                         document.getElementById("Lat").value = mylat;

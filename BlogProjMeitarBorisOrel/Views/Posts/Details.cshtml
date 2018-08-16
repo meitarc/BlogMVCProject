@@ -36,6 +36,12 @@
         </dd>*@
         <br />
         <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUserID)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.UrlImage)
         </dt>
         <dd>
@@ -48,10 +54,10 @@
             @Html.DisplayFor(model => model.NumOfLikes)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.User)
+            @Html.DisplayNameFor(model => model.categoryID)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.User.ID)
+            @Html.DisplayFor(model => model.categoryID)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ApplicationID)
@@ -63,11 +69,12 @@
 
 
 
-    <h2>new api!!</h2>
-    <p id="reply"></p>
-    <p id="temp"></p>
-    <p id="humid"></p>
-    <button>click me</button>
+    <img src="~/images/weather.gif" height="60">
+    <br />
+    @*<p id="reply"></p>*@
+    Temperature: <p id="temp"></p>
+    Humidity: <p id="humid"></p>
+    <button>Click to view weather</button>
 
 
 
@@ -100,17 +107,14 @@
 
 
     <script>
-   // var weather = Object();
     var wlat = @Model.Lat;
     var wlng = @Model.Lng;
     $(document).ready(function () {
         $("button").click(function () {
-           // $.get("https://api.openweathermap.org/data/2.5/weather?lat= 35&lon=139&APPID=c4d13834034b7d4cbb1de048544b6831", function (response) {
             $.get("https://api.openweathermap.org/data/2.5/weather?lat="+(mylat)+"&lon="+(mylat)+"&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
 
             //response
-                //$.get("https://api.openweathermap.org/data/2.5/weather?lat="+wlat+&APPID=c4d13834034b7d4cbb1de048544b6831", function (response) {
-
+               
                 console.log(response);
                 $("#reply").text(response);
                 $("#temp").text(response.main.temp);
@@ -123,29 +127,6 @@
     </script>
     @*$.get("http://api.openweathermap.org/data/2.5/weather?lat={" + wlat + "}&lon={" + wlng + "}&APPID=c4d13834034b7d4cbb1de048544b6831", function (response) {*@
 
-
-    @*<script>
-
-        var weather = Object();
-        $(document).ready(function () {
-            $("button").click(function () {
-               // $.get("http://api.openweathermap.org/data/2.5/weather?lat={" + mylat + "}&lon={" + mylng + "}&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
-                $.get("http://api.openweathermap.org/data/2.5/weather?lat={31.976899}&lon={34.771741}&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
-                //response
-                    console.log(response);
-                    weather = ko.mapping.fromJS(response);  //populate the weather object
-                    ko.applyBindings(weather);
-
-                });
-            });
-        });*@
-
-    //$.get("http://api.openweathermap.org/data/2.5/weather?lat={" + mylat + "}&lon={" + mylng + "}&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
-    //    //response
-    //    console.log(response);
-    //    weather = ko.mapping.fromJS(response);  //populate the weather object
-    //    ko.applyBindings(weather);
-    </script>
 
     @foreach (var item in Model.Comments)
     {

@@ -12,8 +12,9 @@ namespace BlogProjMeitarBorisOrel.Models
         private DateTime _date = DateTime.Now;
         [Key]
         public int ID { get; set; }
+        public string ApplicationUserID { get; set; }
+
         public int PostID { get; set; }
-        public int UserID { get; set; }
         [NotMapped]
         public int Counter { get; set; }
 
@@ -30,9 +31,8 @@ namespace BlogProjMeitarBorisOrel.Models
         [Required(ErrorMessage = "Text is required")]
         public string Text { get; set; }
         public int NumOfLikes { get; set; }
-        public virtual Post Post { get; set; }
-        public virtual User User { get; set; }
+        public virtual ApplicationUser AppUser { get; set; }
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual Post Post { get; set; }
     }
 }

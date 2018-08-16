@@ -31,6 +31,11 @@
             <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
         </environment>*@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    @*3d graph*@
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+    <script src="~/3d/d3.min.js"></script>
 </head>
 <body>
 
@@ -61,12 +66,20 @@
             @await Html.PartialAsync("_LoginPartial")
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                    <li class="nav-item">
-                        <a class="nav-link link text-white display-4" href="/Users">
-                            <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
+
+                    <li >
+                        <a href="/Users">
+                            <span></span>
                             Users
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link link text-white display-4" href="/Categories">
+                            <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
+                            Categories
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link link text-white display-4" href="/Posts">
                             <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>

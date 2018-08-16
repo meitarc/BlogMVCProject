@@ -11,9 +11,10 @@ using System;
 namespace BlogProjMeitarBorisOrel.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180815095559_categories")]
+    partial class categories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,7 +106,7 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserID");
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("Author_Name")
                         .IsRequired();
@@ -122,11 +123,11 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
-                    b.Property<int?>("UserID");
+                    b.Property<int>("UserID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ApplicationUserID");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("PostID");
 
@@ -140,7 +141,7 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserID");
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("Author_Name")
                         .IsRequired();
@@ -163,13 +164,11 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
 
                     b.Property<string>("UrlImage");
 
-                    b.Property<int?>("UserID");
-
-                    b.Property<int>("categoryID");
+                    b.Property<int>("UserID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ApplicationUserID");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CategoriesID");
 
@@ -319,33 +318,35 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
 
             modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.Comment", b =>
                 {
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser", "AppUser")
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser")
                         .WithMany("Comments")
-                        .HasForeignKey("ApplicationUserID");
+                        .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("BlogProjMeitarBorisOrel.Models.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.User")
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.User", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.Post", b =>
                 {
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser", "AppUser")
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser")
                         .WithMany("Posts")
-                        .HasForeignKey("ApplicationUserID");
+                        .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.Blog.Categories", "Categories")
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.Blog.Categories")
                         .WithMany("Posts")
                         .HasForeignKey("CategoriesID");
 
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.User")
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserID");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

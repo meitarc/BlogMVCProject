@@ -7,26 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlogProjMeitarBorisOrel.Data;
 using BlogProjMeitarBorisOrel.Models;
+using BlogProjMeitarBorisOrel.Models.Blog;
 using Microsoft.AspNetCore.Identity;
 
 namespace BlogProjMeitarBorisOrel.Controllers
 {
-    //
+    
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-
         public PostsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
-            _userManager = userManager;//
+            _userManager = userManager;
         }
       
         // GET: Posts
         public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
         {
-
             if (gBy == "Aname")
             {
                 var userNamesByID =
@@ -66,12 +65,13 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 }
 
                 return View(group);
-            }else if (jBy == "user")
+            }
+            else if (jBy == "category")
             {
                 var join =
                 from u in _context.Post
 
-                join p in _context.User on u.UserID equals p.ID
+                join p in _context.Categories on u.categoryID equals p.ID
 
                 select new { u.Author_Name, u.Title };
 
@@ -80,7 +80,27 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 {
                     UserList.Add(new Post()
                     {
-                        Title = t.Title,                   
+                        Title = t.Title,
+                        Author_Name = t.Author_Name
+                    });
+                }
+                return View(UserList);
+            }
+            else if (jBy == "comment")
+            {
+                var join =
+                from u in _context.Post
+
+                join p in _context.Comment on u.ID equals p.PostID
+
+                select new { u.Author_Name, u.Title };
+
+                var UserList = new List<Post>();
+                foreach (var t in join)
+                {
+                    UserList.Add(new Post()
+                    {
+                        Title = t.Title,
                         Author_Name = t.Author_Name
                     });
                 }
@@ -124,10 +144,12 @@ namespace BlogProjMeitarBorisOrel.Controllers
             {
                 return NotFound();
             }
-
-            var post = await _context.Post.Include(p => p.User)
+            ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
+            var post = await _context.Post.Include(p => p.Categories)
                 .Include(p => p.Comments).AsNoTracking()
             .FirstOrDefaultAsync(m => m.ID == id);
+            
+
             if (post == null)
             {
                 return NotFound();
@@ -139,7 +161,16 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ConfirmPassword");
+            if (_userManager.GetUserId(HttpContext.User) != null)
+            {
+                ViewBag.userid = _userManager.GetUserId(HttpContext.User);
+            }
+            else
+            {
+                ViewBag.userid = "Guest";
+            }
+
+            ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View();
         }
 
@@ -148,15 +179,16 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,UserID,ApplicationID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
+        public async Task<IActionResult> Create([Bind("ID,categoryID,ApplicationUserID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ConfirmPassword", post.UserID);
+            ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View(post);
         }
 
@@ -173,7 +205,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ConfirmPassword", post.UserID);
+            ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View(post);
         }
 
@@ -182,7 +214,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,ApplicationID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,categoryID,ApplicationUserID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
         {
             if (id != post.ID)
             {
@@ -209,7 +241,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "ConfirmPassword", post.UserID);
+            ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View(post);
         }
 
@@ -222,7 +254,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             }
 
             var post = await _context.Post
-                .Include(p => p.User)
+                .Include(p => p.Categories)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (post == null)
             {
