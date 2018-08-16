@@ -50,7 +50,7 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                 column: "ApplicationUserId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Comment_AspNetUsers_ApplicationUserId",
+                name: "",
                 table: "Comment",
                 column: "ApplicationUserId",
                 principalTable: "AspNetUsers",
