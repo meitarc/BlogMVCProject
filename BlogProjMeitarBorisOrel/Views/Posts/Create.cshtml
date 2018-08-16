@@ -20,11 +20,6 @@
                 <select asp-for="categoryID" class="form-control" asp-items="ViewBag.categoryID"></select>
             </div>
 
-            @*<div class="form-group">
-            <label asp-for="PublishedDate" class="control-label"></label>
-            <input asp-for="PublishedDate" class="form-control" />
-            <span asp-validation-for="PublishedDate" class="text-danger"></span>
-        </div>*@
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -40,11 +35,7 @@
                 <input asp-for="Text" class="form-control" />
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UrlImage" class="control-label"></label>
-                <input asp-for="UrlImage" class="form-control" />
-                <span asp-validation-for="UrlImage" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Lat" class="control-label"></label>
                 <input asp-for="Lat" class="form-control" />

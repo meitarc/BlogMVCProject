@@ -180,7 +180,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,categoryID,ApplicationUserID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
+        public async Task<IActionResult> Create([Bind("ID,categoryID,ApplicationUserID,PublishedDate,Title,Author_Name,Text,NumOfLikes,Lat,Lng")] Post post)
         {
 
             if (ModelState.IsValid)
@@ -216,7 +216,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,categoryID,ApplicationUserID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,categoryID,ApplicationUserID,PublishedDate,Title,Author_Name,Text,NumOfLikes,Lat,Lng")] Post post)
         {
             if (id != post.ID)
             {
