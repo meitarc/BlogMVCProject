@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlogProjMeitarBorisOrel.Data;
 using BlogProjMeitarBorisOrel.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BlogProjMeitarBorisOrel.Controllers
 {
     public class CommentsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CommentsController(ApplicationDbContext context)
+        public CommentsController(ApplicationDbContext context,UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+
         }
 
         // GET: Comments
@@ -119,7 +123,6 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
             var comment = await _context.Comment
                 .Include(c => c.Post)
-                .Include(c => c.User)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (comment == null)
             {
@@ -132,8 +135,15 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // GET: Comments/Create
         public IActionResult Create()
         {
+            if (_userManager.GetUserId(HttpContext.User) != null)
+            {
+                ViewBag.userid = _userManager.GetUserId(HttpContext.User);
+            }
+            else
+            {
+                ViewBag.userid = "Guest";
+            }
             ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title");
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "User_Name");
             return View();
         }
 
@@ -142,7 +152,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,PostID,UserID,PublishedDate,Title,Author_Name,Text,NumOfLikes")] Comment comment)
+        public async Task<IActionResult> Create([Bind("ID,ApplicationUserID,PostID,PublishedDate,Title,Author_Name,Text,NumOfLikes")] Comment comment)
         {
             if (ModelState.IsValid)
             {
@@ -151,7 +161,6 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title", comment.PostID);
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "User_Name", comment.UserID);
             return View(comment);
         }
 
@@ -169,7 +178,6 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 return NotFound();
             }
             ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title", comment.PostID);
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "User_Name", comment.UserID);
             return View(comment);
         }
 
@@ -178,7 +186,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,PostID,UserID,PublishedDate,Title,Author_Name,Text,NumOfLikes")] Comment comment)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,ApplicationUserID,PostID,PublishedDate,Title,Author_Name,Text,NumOfLikes")] Comment comment)
         {
             if (id != comment.ID)
             {
@@ -206,7 +214,6 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["PostID"] = new SelectList(_context.Set<Post>(), "ID", "Title", comment.PostID);
-            ViewData["UserID"] = new SelectList(_context.Set<User>(), "ID", "User_Name", comment.UserID);
             return View(comment);
         }
 
@@ -220,7 +227,6 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
             var comment = await _context.Comment
                 .Include(c => c.Post)
-                .Include(c => c.User)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (comment == null)
             {

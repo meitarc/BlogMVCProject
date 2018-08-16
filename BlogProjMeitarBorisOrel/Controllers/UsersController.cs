@@ -33,12 +33,12 @@ namespace BlogProjMeitarBorisOrel.Controllers
             };
             _CommentList = new List<Comment>
             {
-                new Comment{ID=1,PostID=1,UserID=7,PublishedDate=new DateTime(2013,02,02,02,02,02),Title="aaa",Author_Name="ggg",Text="mmm"},
-                new Comment{ID=2,PostID=2,UserID=8,PublishedDate= new DateTime(2013,10,10,07,08,05),Title="bbb",Author_Name="hhh",Text="nnn"},
-                new Comment{ID=3,PostID=3,UserID=9,PublishedDate=new DateTime(2013,10,10,07,08,05),Title="ccc",Author_Name="iii",Text="ooo"},
-                new Comment{ID=4,PostID=4,UserID=10,PublishedDate=new DateTime(2013,10,10,07,08,05),Title="ddd",Author_Name="jjj",Text="ppp"},
-                new Comment{ID=5,PostID=5,UserID=11,PublishedDate=new DateTime(2013,10,10,07,08,05),Title="eee",Author_Name="kkk",Text="qqq"},
-                new Comment{ID=6,PostID=6,UserID=12,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="fff",Author_Name="lll",Text="rrr"}
+                new Comment{ID=1,PostID=1,PublishedDate=new DateTime(2013,02,02,02,02,02),Title="aaa",Author_Name="ggg",Text="mmm"},
+                new Comment{ID=2,PostID=2,PublishedDate= new DateTime(2013,10,10,07,08,05),Title="bbb",Author_Name="hhh",Text="nnn"},
+                new Comment{ID=3,PostID=3,PublishedDate=new DateTime(2013,10,10,07,08,05),Title="ccc",Author_Name="iii",Text="ooo"},
+                new Comment{ID=4,PostID=4,PublishedDate=new DateTime(2013,10,10,07,08,05),Title="ddd",Author_Name="jjj",Text="ppp"},
+                new Comment{ID=5,PostID=5,PublishedDate=new DateTime(2013,10,10,07,08,05),Title="eee",Author_Name="kkk",Text="qqq"},
+                new Comment{ID=6,PostID=6,PublishedDate=new DateTime(2015,10,10,4,5,6),Title="fff",Author_Name="lll",Text="rrr"}
             };
             _UserList = new List<User>
             {

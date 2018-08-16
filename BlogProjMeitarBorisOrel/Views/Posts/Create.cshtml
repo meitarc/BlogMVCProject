@@ -5,7 +5,6 @@
 }
 
 <h2>Add a post</h2>
-<p>@ViewBag.userid</p>
 
 <div class="row">
     <div class="col-md-4">
@@ -13,7 +12,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="ApplicationUserID" class="control-label"></label>
-                <input asp-for="ApplicationUserID" value="@ViewBag.userid" class="form-control" />
+                <input readonly asp-for="ApplicationUserID" value="@ViewBag.userid" class="form-control" />
                 <span asp-validation-for="ApplicationUserID" class="text-danger"></span>
             </div>
             <div class="form-group">

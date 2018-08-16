@@ -38,7 +38,6 @@ namespace BlogProjMeitarBorisOrel.Models
         public double Lng { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual User User { get; set; }
         public virtual ApplicationUser AppUser { get; set; }
         public virtual Categories Categories { get; set; }
     }
