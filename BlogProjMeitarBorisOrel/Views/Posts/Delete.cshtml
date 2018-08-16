@@ -12,6 +12,12 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUserID)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.PublishedDate)
         </dt>
         <dd>
@@ -35,12 +41,7 @@
         <dd>
             @Html.DisplayFor(model => model.Text)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UrlImage)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UrlImage)
-        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.NumOfLikes)
         </dt>

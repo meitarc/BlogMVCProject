@@ -28,8 +28,6 @@ namespace BlogProjMeitarBorisOrel.Data
 
         public DbSet<BlogProjMeitarBorisOrel.Models.Post> Post { get; set; }
 
-        public DbSet<BlogProjMeitarBorisOrel.Models.User> User { get; set; }
-
         public DbSet<BlogProjMeitarBorisOrel.Models.ApplicationUser> User2 { get; set; }
 
         public DbSet<BlogProjMeitarBorisOrel.Models.Blog.Categories> Categories { get; set; }

@@ -32,11 +32,23 @@
     </select>
 
     <input type="submit" value="Join By" />
+
+    <select name="oBy">
+        <option value="">No Order</option>
+        <option value="title">Title</option>
+        <option value="author">Author_Name</option>
+
+    </select>
+
+    <input type="submit" value="Order By" />
 </p>
 }
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUserID)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.PublishedDate)
             </th>
@@ -58,9 +70,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.PostID)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserID)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -68,6 +77,9 @@
         @foreach (var item in Model)
         {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUserID)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PublishedDate)
             </td>
@@ -89,9 +101,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PostID)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserID)
-            </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ID">Details</a> |

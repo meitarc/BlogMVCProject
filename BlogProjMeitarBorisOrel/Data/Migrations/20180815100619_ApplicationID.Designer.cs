@@ -11,9 +11,10 @@ using System;
 namespace BlogProjMeitarBorisOrel.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180815100619_ApplicationID")]
+    partial class ApplicationID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,33 +80,12 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.Blog.Categories", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Category_Description");
-
-                    b.Property<string>("Category_Name")
-                        .IsRequired();
-
-                    b.Property<string>("First_Name")
-                        .IsRequired();
-
-                    b.Property<string>("Last_Name")
-                        .IsRequired();
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Categories");
-                });
-
             modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.Comment", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserID");
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("Author_Name")
                         .IsRequired();
@@ -122,11 +102,15 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
+                    b.Property<int>("UserID");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("ApplicationUserID");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("PostID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Comment");
                 });
@@ -136,12 +120,12 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserID");
+                    b.Property<int>("ApplicationID");
+
+                    b.Property<string>("ApplicationUserId");
 
                     b.Property<string>("Author_Name")
                         .IsRequired();
-
-                    b.Property<int?>("CategoriesID");
 
                     b.Property<double>("Lat");
 
@@ -157,15 +141,48 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
-                    b.Property<int>("categoryID");
+                    b.Property<string>("UrlImage");
+
+                    b.Property<int>("UserID");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ApplicationUserID");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("CategoriesID");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Post");
+                });
+
+            modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired();
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("First_Name")
+                        .IsRequired();
+
+                    b.Property<bool>("Is_Admin");
+
+                    b.Property<string>("Last_Name")
+                        .IsRequired();
+
+                    b.Property<string>("Password")
+                        .IsRequired();
+
+                    b.Property<string>("User_Name")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -278,25 +295,31 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
 
             modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.Comment", b =>
                 {
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser", "AppUser")
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Comments")
-                        .HasForeignKey("ApplicationUserID");
+                        .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("BlogProjMeitarBorisOrel.Models.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.Post", b =>
                 {
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser", "AppUser")
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Posts")
-                        .HasForeignKey("ApplicationUserID");
+                        .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("BlogProjMeitarBorisOrel.Models.Blog.Categories", "Categories")
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("CategoriesID");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

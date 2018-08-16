@@ -9,35 +9,46 @@
 <p>
     <a asp-action="Create">Write a new post</a>
 </p>
+
 @using (Html.BeginForm())
 {
-    <p>
-        Find by Title: @Html.TextBox("SearchString")
-        Author Name: @Html.TextBox("SearchString2")
-        Text: @Html.TextBox("SearchString3")
-        <input type="submit" value="Search" />
+<p>
+    Find by Title: @Html.TextBox("SearchString")
+    Author Name: @Html.TextBox("SearchString2")
+    Text: @Html.TextBox("SearchString3")
+    <input type="submit" value="Search" />
 
-        <select name="gBy">
-            <option value="">No Group</option>
-            <option value="Aname">Author Name</option>
-            <option value="title">Title</option>
-        </select>
+    <select name="gBy">
+        <option value="">No Group</option>
+        <option value="Aname">Author Name</option>
+        <option value="title">Title</option>
+    </select>
 
-        <input type="submit" value="Group By" />
+    <input type="submit" value="Group By" />
 
     <select name="jBy">
         <option value="">No Join</option>
         <option value="category">Categories</option>
         <option value="comment">Comments</option>
 
-        </select>
+    </select>
+    <input type="submit" value="Join By" />
+    <select name="oBy">
+        <option value="">No Order</option>
+        <option value="title">Title</option>
+        <option value="author">Author_Name</option>
 
-        <input type="submit" value="Join By" />
-    </p>
+    </select>
+
+    <input type="submit" value="Order By" />
+</p>
 }
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ApplicationUserID)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.PublishedDate)
             </th>
@@ -53,9 +64,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Text)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UrlImage)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.NumOfLikes)
             </th>
@@ -74,43 +83,44 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Counter)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UrlImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumOfLikes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lng)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.categoryID)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.ID">View Post</a> |
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Counter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumOfLikes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lng)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoryID)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ID">View Post</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
         }
 
 
@@ -153,7 +163,7 @@
     });
 
 
-</script>
+    </script>*@
 
 
 

@@ -8,23 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using BlogProjMeitarBorisOrel.Data;
 using BlogProjMeitarBorisOrel.Models;
 using BlogProjMeitarBorisOrel.Models.Blog;
+using Microsoft.AspNetCore.Identity;
 
 namespace BlogProjMeitarBorisOrel.Controllers
 {
-    //
+
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        
-        public PostsController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+        public PostsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            _context = context;//
+            _context = context;
+            _userManager = userManager;
         }
 
         // GET: Posts
-        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy, string oBy)
         {
-
             if (gBy == "Aname")
             {
                 var userNamesByID =
@@ -105,28 +106,58 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 }
                 return View(UserList);
             }
+            else if (oBy == "title")
+            {
+
+
+                var posts = from s in _context.Post
+                            select s;
+      
+                    posts = posts.OrderBy(s => s.Title);
+                
+
+                return View(posts.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
+            }
+            else if (oBy == "author")
+            {
+
+
+                var posts = from s in _context.Post
+                            select s;
+
+                posts = posts.OrderBy(s => s.Author_Name);
+
+
+                return View(posts.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
+            }
             else
-            { 
-
-            var posts = from s in _context.Post
-                        select s;
-            if (!String.IsNullOrEmpty(searchString))
             {
-                posts = posts.Where(s => s.Title.Contains(searchString));
-            }
 
-            if (!String.IsNullOrEmpty(searchString2))
-            {
-                  
-                posts = posts.Where(s => s.Author_Name.Contains(searchString2));
-            }
+                var posts = from s in _context.Post
+                            select s;
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    posts = posts.Where(s => s.Title.Contains(searchString));
+                }
 
-            if (!String.IsNullOrEmpty(searchString3))
-            {
-                posts = posts.Where(s => s.Text.Contains(searchString3));
-            }
+                if (!String.IsNullOrEmpty(searchString2))
+                {
 
-            return View(posts.ToList());
+                    posts = posts.Where(s => s.Author_Name.Contains(searchString2));
+                }
+
+                if (!String.IsNullOrEmpty(searchString3))
+                {
+                    posts = posts.Where(s => s.Text.Contains(searchString3));
+                }
+                ViewBag.userId = _userManager.GetUserId(HttpContext.User);
+                return View(posts.ToList());
                 //var applicationDbContext = _context.Post.Include(p => p.User);
                 //return View(await applicationDbContext.ToListAsync());
             }
@@ -143,11 +174,12 @@ namespace BlogProjMeitarBorisOrel.Controllers
             {
                 return NotFound();
             }
+
             ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             var post = await _context.Post.Include(p => p.Categories)
                 .Include(p => p.Comments).AsNoTracking()
             .FirstOrDefaultAsync(m => m.ID == id);
-            
+
 
             if (post == null)
             {
@@ -160,6 +192,15 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
+            if (_userManager.GetUserId(HttpContext.User) != null)
+            {
+                ViewBag.userid = _userManager.GetUserId(HttpContext.User);
+            }
+            else
+            {
+                ViewBag.userid = "Guest";
+            }
+
             ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View();
         }
@@ -169,14 +210,16 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,categoryID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
+        public async Task<IActionResult> Create([Bind("ID,categoryID,ApplicationUserID,PublishedDate,Title,Author_Name,Text,NumOfLikes,Lat,Lng")] Post post)
         {
+
             if (ModelState.IsValid)
             {
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View(post);
         }
@@ -203,7 +246,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,categoryID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,categoryID,ApplicationUserID,PublishedDate,Title,Author_Name,Text,NumOfLikes,Lat,Lng")] Post post)
         {
             if (id != post.ID)
             {
@@ -230,6 +273,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View(post);
         }

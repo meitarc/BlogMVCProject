@@ -11,14 +11,15 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="ApplicationUserID" class="control-label"></label>
+                <input readonly asp-for="ApplicationUserID" value="@ViewBag.userid" class="form-control" />
+                <span asp-validation-for="ApplicationUserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="categoryID" class="control-label"></label>
                 <select asp-for="categoryID" class="form-control" asp-items="ViewBag.categoryID"></select>
             </div>
-            @*<div class="form-group">
-            <label asp-for="PublishedDate" class="control-label"></label>
-            <input asp-for="PublishedDate" class="form-control" />
-            <span asp-validation-for="PublishedDate" class="text-danger"></span>
-        </div>*@
+
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -34,11 +35,7 @@
                 <input asp-for="Text" class="form-control" />
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UrlImage" class="control-label"></label>
-                <input asp-for="UrlImage" class="form-control" />
-                <span asp-validation-for="UrlImage" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Lat" class="control-label"></label>
                 <input asp-for="Lat" class="form-control" />
@@ -48,32 +45,32 @@
                 <label asp-for="Lng" class="control-label"></label>
                 <input asp-for="Lng" class="form-control" />
                 <span asp-validation-for="Lng" class="text-danger"></span>
-                
+
             </div>
 
 
             <div id="map" style="width:100%;height:500px"></div>
             <script>
-    function myMap() {
-        var myCenter = new google.maps.LatLng(0, 0);
+                function myMap() {
+                    var myCenter = new google.maps.LatLng(0, 0);
 
-        var mapCanvas = document.getElementById("map");
-        var mapOptions = { center: myCenter, zoom: 8 };
-        var map = new google.maps.Map(mapCanvas, mapOptions);
-        var marker = new google.maps.Marker({ position: myCenter });
+                    var mapCanvas = document.getElementById("map");
+                    var mapOptions = { center: myCenter, zoom: 8 };
+                    var map = new google.maps.Map(mapCanvas, mapOptions);
+                    var marker = new google.maps.Marker({ position: myCenter });
 
-        google.maps.event.addListener(map, 'click', function (event) {
+                    google.maps.event.addListener(map, 'click', function (event) {
 
-            //alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
-            var mylat =event.latLng.lat();
-            var mylng = event.latLng.lng();
-            document.getElementById("Lat").value = mylat;
+                        //alert("Latitude: " + event.latLng.lat() + " " + ", longitude: " + event.latLng.lng());
+                        var mylat = event.latLng.lat();
+                        var mylng = event.latLng.lng();
+                        document.getElementById("Lat").value = mylat;
 
-            document.getElementById("Lng").value = mylng;
-        });
-        marker.setMap(map);
+                        document.getElementById("Lng").value = mylng;
+                    });
+                    marker.setMap(map);
 
-    }
+                }
             </script>
 
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUm-xJ8zxKG2tILVdLTFDKADf0dmqJ7wo&callback=myMap"></script>

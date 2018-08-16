@@ -20,9 +20,149 @@ namespace BlogProjMeitarBorisOrel.Controllers
         }
 
         // GET: ApplicationUsers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy, string oBy)
         {
-            return View(await _context.User2.ToListAsync());
+            if (gBy == "Fname")
+            {
+                var userNamesByID =
+                   from u in _context.User2
+                   group u by u.First_Name into g
+                   select new { First_Name = g.Key, count = g.Count(), g.First().Last_Name };
+                var group = new List<ApplicationUser>();
+                foreach (var t in userNamesByID)
+                {
+                    group.Add(new ApplicationUser()
+                    {
+                        First_Name = t.First_Name,
+                        Counter = t.count,
+                        Last_Name = t.Last_Name
+
+                    });
+                }
+
+                return View(group);
+            }
+            else if (gBy == "Lname")
+            {
+                var userNamesByID =
+                    from u in _context.User2
+                    group u by u.Last_Name into g
+                    select new { First_Name = g.Key, count = g.Count(), g.First().Last_Name };
+                var group = new List<ApplicationUser>();
+                foreach (var t in userNamesByID)
+                {
+                    group.Add(new ApplicationUser()
+                    {
+                        First_Name = t.First_Name,
+                        Counter = t.count,
+                        Last_Name = t.Last_Name
+
+                    });
+                }
+
+                return View(group);
+            }
+            else if (jBy == "post")
+            {
+                var join =
+                from u in _context.User2
+
+                join p in _context.Post on u.Id equals p.ApplicationUserID
+
+                select new { u.First_Name, u.Last_Name, p.Title};
+
+                var UserList = new List<ApplicationUser>();
+                foreach (var t in join)
+                {
+                    UserList.Add(new ApplicationUser()
+                    {
+                        First_Name = t.First_Name,
+                        Last_Name = t.Last_Name,
+                        Title = t.Title
+                
+                    });
+                }
+                return View(UserList);
+            }
+            else if (jBy == "comment")
+            {
+                var join =
+                from u in _context.User2
+
+                join p in _context.Comment on u.Id equals p.ApplicationUserID
+
+                select new { u.First_Name, u.Last_Name, p.Title };
+
+                var UserList = new List<ApplicationUser>();
+                foreach (var t in join)
+                {
+                    UserList.Add(new ApplicationUser()
+                    {
+                        First_Name = t.First_Name,
+                        Last_Name = t.Last_Name,
+                        Title = t.Title
+
+                    });
+                }
+                return View(UserList);
+            }
+            else if (oBy == "fName")
+            {
+
+
+                var appUser = from s in _context.User2
+                                 select s;
+
+                appUser = appUser.OrderBy(s => s.First_Name);
+
+
+                return View(appUser.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
+            }
+
+            else if (oBy == "lName")
+            {
+
+
+                var appUser = from s in _context.User2
+                              select s;
+
+                appUser = appUser.OrderBy(s => s.Last_Name);
+
+
+                return View(appUser.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
+            }
+            else
+            {
+
+                var appUser = from s in _context.User2
+                            select s;
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    appUser = appUser.Where(s => s.First_Name.Contains(searchString));
+                }
+
+                if (!String.IsNullOrEmpty(searchString2))
+                {
+
+                    appUser = appUser.Where(s => s.Last_Name.Contains(searchString2));
+                }
+
+                if (!String.IsNullOrEmpty(searchString3))
+                {
+                    appUser = appUser.Where(s => s.Country.Contains(searchString3));
+                }
+                return View(appUser.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+            }
+
+            //return View(await _context.User2.ToListAsync());
         }
 
         // GET: ApplicationUsers/Details/5

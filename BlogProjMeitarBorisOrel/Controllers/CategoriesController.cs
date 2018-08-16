@@ -22,7 +22,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy, string oBy)
         {
             if (gBy == "CDesc")
             {
@@ -84,6 +84,38 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 }
                 return View(UserList);
             }
+            else if (oBy == "cName")
+            {
+
+
+                var categories = from s in _context.Categories
+                               select s;
+
+                categories = categories.OrderBy(s => s.Category_Name);
+
+
+                return View(categories.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
+            }
+
+            else if (oBy == "fName")
+            {
+
+
+                var categories = from s in _context.Categories
+                                 select s;
+
+                categories = categories.OrderBy(s => s.First_Name);
+
+
+                return View(categories.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
+            }
+
             else
             {
 

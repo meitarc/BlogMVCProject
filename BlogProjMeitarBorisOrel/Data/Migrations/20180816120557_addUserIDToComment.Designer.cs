@@ -11,9 +11,10 @@ using System;
 namespace BlogProjMeitarBorisOrel.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180816120557_addUserIDToComment")]
+    partial class addUserIDToComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,11 +123,15 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
+                    b.Property<int?>("UserID");
+
                     b.HasKey("ID");
 
                     b.HasIndex("ApplicationUserID");
 
                     b.HasIndex("PostID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Comment");
                 });
@@ -157,6 +162,10 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
+                    b.Property<string>("UrlImage");
+
+                    b.Property<int?>("UserID");
+
                     b.Property<int>("categoryID");
 
                     b.HasKey("ID");
@@ -165,7 +174,40 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
 
                     b.HasIndex("CategoriesID");
 
+                    b.HasIndex("UserID");
+
                     b.ToTable("Post");
+                });
+
+            modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.User", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired();
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("First_Name")
+                        .IsRequired();
+
+                    b.Property<bool>("Is_Admin");
+
+                    b.Property<string>("Last_Name")
+                        .IsRequired();
+
+                    b.Property<string>("Password")
+                        .IsRequired();
+
+                    b.Property<string>("User_Name")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -286,6 +328,10 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("BlogProjMeitarBorisOrel.Models.Post", b =>
@@ -297,6 +343,10 @@ namespace BlogProjMeitarBorisOrel.Data.Migrations
                     b.HasOne("BlogProjMeitarBorisOrel.Models.Blog.Categories", "Categories")
                         .WithMany("Posts")
                         .HasForeignKey("CategoriesID");
+
+                    b.HasOne("BlogProjMeitarBorisOrel.Models.User")
+                        .WithMany("Posts")
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -9,6 +9,12 @@
 
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.ApplicationUserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationUserID)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.PublishedDate)
         </dt>
         <dd>
@@ -44,12 +50,7 @@
         <dd>
             @Html.DisplayFor(model => model.Post.Title)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.User.User_Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.User.User_Name)
-        </dd>
+
     </dl>
 </div>
 <div>
