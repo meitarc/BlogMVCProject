@@ -11,28 +11,28 @@
 </p>
 @using (Html.BeginForm())
 {
-<p>
-    Find by Category Name: @Html.TextBox("SearchString")
-    Category Description: @Html.TextBox("SearchString2")
-    First Name: @Html.TextBox("SearchString3")
-    <input type="submit" value="Search" />
+    <p>
+        Find by Category Name: @Html.TextBox("SearchString")
+        Category Description: @Html.TextBox("SearchString2")
+        First Name: @Html.TextBox("SearchString3")
+        <input type="submit" value="Search" />
 
-    <select name="gBy">
-        <option value="">No Group</option>
-        <option value="Cname">Category Name</option>
-        <option value="CDesc">Category Description</option>
-    </select>
+        <select name="gBy">
+            <option value="">No Group</option>
+            <option value="Cname">Category Name</option>
+            <option value="CDesc">Category Description</option>
+        </select>
 
-    <input type="submit" value="Group By" />
+        <input type="submit" value="Group By" />
 
-    <select name="jBy">
-        <option value="">No Join</option>
-        <option value="post">Posts</option>
+        <select name="jBy">
+            <option value="">No Join</option>
+            <option value="post">Posts</option>
 
-    </select>
+        </select>
 
-    <input type="submit" value="Join By" />
-</p>
+        <input type="submit" value="Join By" />
+    </p>
 }
 <table class="table">
     <thead>
@@ -58,28 +58,100 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category_Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.First_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Last_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Counter)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category_Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.First_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Last_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Counter)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+@*<h3>start graph</h3>
+    <svg width="960" height="500"></svg>
+    <h3>end graph</h3>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>
+        d3.select('h3').text("dddddddd").style('color', 'blue');
+    var svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height"),
+        radius = Math.min(width, height) / 2,
+        g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+    var pie = d3.pie()
+        .sort(null)
+        .value(function (d) { return @Model.Counter; });
+
+    var path = d3.arc()
+        .outerRadius(radius - 10)
+        .innerRadius(0);
+
+    var label = d3.arc()
+        .outerRadius(radius - 40)
+        .innerRadius(radius - 40);
+
+    d3.csv("data.csv", function(d) {
+      d.population = +d.population;
+      return d;
+    }, function(error, data) {
+      if (error) throw error;
+
+      var arc = g.selectAll(".arc")
+        .data(pie(data))
+        .enter().append("g")
+          .attr("class", "arc");
+
+      arc.append("path")
+          .attr("d", path)
+          .attr("fill", function(d) { return color(d.data.age); });
+
+      arc.append("text")
+          .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
+          .attr("dy", "0.35em")
+          .text(function(d) { return d.data.age; });
+    });
+
+    </script>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#h3").click(function () {
+            $("#h3").hide()
+        })
+    })
+</script>
+
+<h3 id="h3">click me to make me disappear</h3>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#hide").click(function () {
+            $("p").hide()
+        })
+        $("#show").click(function () {
+            $("p").show()
+        })
+    })
+</script>
+<p id="p1">If you click on the "Hide" button, I will disappear.</p>
+<button id="hide" type="button">Hide</button>
+<button id="show" type="button">Show</button>

@@ -119,11 +119,78 @@
     <section class="section-table cid-qZAgLG7oee">
         @RenderBody()
     </section>
-    <div id="blogroll">
+    <section>
+        @*facebook*@
 
+        <script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '249043415725802',
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v3.1'
+                });
 
-        <hr />
-    </div>
+                FB.AppEvents.logPageView();
+
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            function statusChangeCallback(response) {
+                if (response.status === 'connected') {
+                    console.log('logged in Facebook');
+
+                } else if (response.status === 'not_authorized') {
+                    console.log('Facebook fucked us not_authorized');
+
+                } else if (response.status === 'unknown') {
+                    console.log('Facebook fucked us unknown ');
+
+            }
+
+        </script>
+        @*<script>
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '249043415725802',
+                    autoLogAppEvents: true,
+                    xfbml: true,
+                    version: 'v3.1'
+                });
+                FB.getLoginStatus(function (response) {
+                    if (response.status === 'connected') {
+                        document.getElementById('status').innerHTML - 'we are connected';
+                    } else if (response.status === 'not_authorizad') {
+                        document.getElementById('status').innerHTML - 'we are not loged in';
+
+                    }
+
+                })
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+        </script>*@
+        <h4>find me !!!</h4>
+        <div id="status"></div>
+    </section>
 
     <section class="engine"><a href="https://mobiri.se/f">easy site maker</a></section><section class="cid-qTkA127IK8 mbr-fullscreen mbr-parallax-background" id="header2-1">
 

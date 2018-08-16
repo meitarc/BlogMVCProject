@@ -118,12 +118,39 @@
     </tbody>
 </table>
 
-<p>D3Graph</p>
+<p >D3Graph</p>
 <svg width="960" height="500"></svg>
 <script>
     d3.select('p').text("dddddddd").style('color', 'blue');
-   // d3.selectall();
-    
+    // d3.selectall();
+    $(documant).ready(function () {
+        $ajax.({
+            type: "GET",
+            url: "/Post/Author Name",
+            success: function (result) {
+                div = document.getElementById("Author Name");
+                tmp = ""
+                for (var i = 0; i < result.length; i++) {
+                    var disabled = (result[i] == currentCategory) ? "disabled" : "/**/"
+                    console.log(result[i], disabled);
+                    var tmp = $("<a></a>", {
+                        text: result[i],
+                        "id": result[i],
+                        "class":"btn btn-info"+disabled,
+                        "role": "button",
+                        "href": herf + result[i],
+                                
+
+                    }).appendTo(div)
+
+                }
+            },
+            error: function (response) {alert('error')}
+
+        })
+
+
+    });
 
 
 </script>

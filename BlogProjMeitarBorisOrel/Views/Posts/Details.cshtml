@@ -99,7 +99,7 @@
     var wlng = @Model.Lng;
     $(document).ready(function () {
         $("button").click(function () {
-            $.get("https://api.openweathermap.org/data/2.5/weather?lat="+(mylat)+"&lon="+(mylat)+"&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
+            $.get("https://api.openweathermap.org/data/2.5/weather?lat="+(mylat)+"&lon="+(mylng)+"&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
 
             //response
                
