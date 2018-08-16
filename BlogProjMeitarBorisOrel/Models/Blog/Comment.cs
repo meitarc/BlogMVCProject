@@ -32,5 +32,7 @@ namespace BlogProjMeitarBorisOrel.Models
         public int NumOfLikes { get; set; }
         public virtual Post Post { get; set; }
         public virtual User User { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

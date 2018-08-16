@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlogProjMeitarBorisOrel.Data;
 using BlogProjMeitarBorisOrel.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace BlogProjMeitarBorisOrel.Controllers
 {
@@ -14,12 +15,14 @@ namespace BlogProjMeitarBorisOrel.Controllers
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        
-        public PostsController(ApplicationDbContext context)
-        {
-            _context = context;//
-        }
+        private readonly UserManager<ApplicationUser> _userManager;
 
+        public PostsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            _context = context;
+            _userManager = userManager;//
+        }
+      
         // GET: Posts
         public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
         {
@@ -103,7 +106,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             {
                 posts = posts.Where(s => s.Text.Contains(searchString3));
             }
-
+                ViewBag.userId = _userManager.GetUserId(HttpContext.User);
             return View(posts.ToList());
                 //var applicationDbContext = _context.Post.Include(p => p.User);
                 //return View(await applicationDbContext.ToListAsync());
@@ -145,7 +148,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,UserID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
+        public async Task<IActionResult> Create([Bind("ID,UserID,ApplicationID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
         {
             if (ModelState.IsValid)
             {
@@ -179,7 +182,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,UserID,ApplicationID,PublishedDate,Title,Author_Name,Text,UrlImage,NumOfLikes,Lat,Lng")] Post post)
         {
             if (id != post.ID)
             {

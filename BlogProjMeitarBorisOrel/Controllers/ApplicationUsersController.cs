@@ -22,6 +22,8 @@ namespace BlogProjMeitarBorisOrel.Controllers
         // GET: ApplicationUsers
         public async Task<IActionResult> Index()
         {
+            
+           
             return View(await _context.User2.ToListAsync());
         }
 

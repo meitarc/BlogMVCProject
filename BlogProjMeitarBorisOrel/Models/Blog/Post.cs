@@ -14,6 +14,7 @@ namespace BlogProjMeitarBorisOrel.Models
         public int ID { get; set; }
         public int UserID { get; set; }
 
+        public int ApplicationID { get; set; }
         [NotMapped]
         public int Counter { get; set; }
 
@@ -37,5 +38,7 @@ namespace BlogProjMeitarBorisOrel.Models
 
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
