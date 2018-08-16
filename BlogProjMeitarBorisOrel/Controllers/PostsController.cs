@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BlogProjMeitarBorisOrel.Controllers
 {
-    
+
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,9 +22,9 @@ namespace BlogProjMeitarBorisOrel.Controllers
             _context = context;
             _userManager = userManager;
         }
-      
+
         // GET: Posts
-        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy, string oBy)
         {
             if (gBy == "Aname")
             {
@@ -106,28 +106,58 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 }
                 return View(UserList);
             }
+            else if (oBy == "title")
+            {
+
+
+                var posts = from s in _context.Post
+                            select s;
+      
+                    posts = posts.OrderBy(s => s.Title);
+                
+
+                return View(posts.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
+            }
+            else if (oBy == "author")
+            {
+
+
+                var posts = from s in _context.Post
+                            select s;
+
+                posts = posts.OrderBy(s => s.Author_Name);
+
+
+                return View(posts.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
+            }
             else
-            { 
-
-            var posts = from s in _context.Post
-                        select s;
-            if (!String.IsNullOrEmpty(searchString))
             {
-                posts = posts.Where(s => s.Title.Contains(searchString));
-            }
 
-            if (!String.IsNullOrEmpty(searchString2))
-            {
-                  
-                posts = posts.Where(s => s.Author_Name.Contains(searchString2));
-            }
+                var posts = from s in _context.Post
+                            select s;
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    posts = posts.Where(s => s.Title.Contains(searchString));
+                }
 
-            if (!String.IsNullOrEmpty(searchString3))
-            {
-                posts = posts.Where(s => s.Text.Contains(searchString3));
-            }
+                if (!String.IsNullOrEmpty(searchString2))
+                {
+
+                    posts = posts.Where(s => s.Author_Name.Contains(searchString2));
+                }
+
+                if (!String.IsNullOrEmpty(searchString3))
+                {
+                    posts = posts.Where(s => s.Text.Contains(searchString3));
+                }
                 ViewBag.userId = _userManager.GetUserId(HttpContext.User);
-            return View(posts.ToList());
+                return View(posts.ToList());
                 //var applicationDbContext = _context.Post.Include(p => p.User);
                 //return View(await applicationDbContext.ToListAsync());
             }
@@ -149,7 +179,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             var post = await _context.Post.Include(p => p.Categories)
                 .Include(p => p.Comments).AsNoTracking()
             .FirstOrDefaultAsync(m => m.ID == id);
-            
+
 
             if (post == null)
             {

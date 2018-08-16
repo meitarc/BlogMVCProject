@@ -20,7 +20,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         }
 
         // GET: ApplicationUsers
-        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy, string oBy)
         {
             if (gBy == "Fname")
             {
@@ -105,6 +105,37 @@ namespace BlogProjMeitarBorisOrel.Controllers
                     });
                 }
                 return View(UserList);
+            }
+            else if (oBy == "fName")
+            {
+
+
+                var appUser = from s in _context.User2
+                                 select s;
+
+                appUser = appUser.OrderBy(s => s.First_Name);
+
+
+                return View(appUser.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
+            }
+
+            else if (oBy == "lName")
+            {
+
+
+                var appUser = from s in _context.User2
+                              select s;
+
+                appUser = appUser.OrderBy(s => s.Last_Name);
+
+
+                return View(appUser.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
             }
             else
             {

@@ -27,6 +27,7 @@ namespace BlogProjMeitarBorisOrel.Models
         [Display(Name = "Author Name")]
         
         public string Author_Name { get; set; }
+        
         [Required(ErrorMessage = "Text is required")]
         public string Text { get; set; }
         public int NumOfLikes { get; set; }

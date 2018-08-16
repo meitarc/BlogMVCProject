@@ -24,7 +24,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         }
 
         // GET: Comments
-        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy)
+        public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy, string oBy)
         {
             if (gBy == "Aname")
             {
@@ -85,6 +85,36 @@ namespace BlogProjMeitarBorisOrel.Controllers
                     });
                 }
                 return View(UserList);
+            }
+            else if (oBy == "title")
+            {
+
+
+                var comments = from s in _context.Comment
+                            select s;
+
+                comments = comments.OrderBy(s => s.Title);
+
+
+                return View(comments.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
+            }
+            else if (oBy == "author")
+            {
+
+
+                var comments = from s in _context.Comment
+                            select s;
+
+                comments = comments.OrderBy(s => s.Author_Name);
+
+
+                return View(comments.ToList());
+                //var applicationDbContext = _context.Post.Include(p => p.User);
+                //return View(await applicationDbContext.ToListAsync());
+
             }
             else
             {
