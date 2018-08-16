@@ -11,6 +11,11 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
+                <label asp-for="ApplicationUserID" class="control-label"></label>
+                <input asp-for="ApplicationUserID" class="form-control" />
+                <span asp-validation-for="ApplicationUserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="categoryID" class="control-label">Category Name</label>
                 <select asp-for="categoryID" class="form-control" asp-items="ViewBag.categoryID"></select>
                 <span asp-validation-for="categoryID" class="text-danger"></span>
