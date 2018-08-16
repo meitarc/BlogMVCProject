@@ -23,6 +23,8 @@ namespace BlogProjMeitarBorisOrel.Models
         public string Last_Name { get; set; }
 
         public string Country { get; set; }
+        [NotMapped]
+        public string Title { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }

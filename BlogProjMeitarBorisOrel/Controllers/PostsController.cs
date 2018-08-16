@@ -144,6 +144,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             {
                 return NotFound();
             }
+
             ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             var post = await _context.Post.Include(p => p.Categories)
                 .Include(p => p.Comments).AsNoTracking()
@@ -188,6 +189,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View(post);
         }
@@ -241,6 +243,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View(post);
         }
