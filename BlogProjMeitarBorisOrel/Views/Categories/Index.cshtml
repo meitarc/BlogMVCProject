@@ -84,9 +84,18 @@
                     @Html.DisplayFor(modelItem => item.Counter)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("Admin"))
+                        {
+
+
+                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        }
+                    }
                 </td>
             </tr>
         }

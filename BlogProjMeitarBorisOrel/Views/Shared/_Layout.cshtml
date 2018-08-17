@@ -51,18 +51,7 @@
                 </div>
             </button>
 
-            <div class="menu-logo">
-                <div class="navbar-brand">
-
-                    <span class="navbar-caption-wrap">
-                        <a class="navbar-caption text-white display-4" >
-                            BLOG
-
-
-                        </a>
-                    </span>
-                </div>
-            </div>
+            
             @await Html.PartialAsync("_LoginPartial")
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
@@ -98,26 +87,29 @@
                             Register
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link link text-white display-4" href="/ApplicationUsers">
-                            <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
-                            Users List
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        @if (User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("Admin"))
                         {
-                            @if (User.IsInRole("Admin"))
-                            {
+                        
+                    
+                            <li class="nav-item">
+                                <a class="nav-link link text-white display-4" href="/ApplicationUsers">
+                                    <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
+                                    Users List
+                                </a>
+                            </li>
+                            <li class="nav-item">
+
 
                                 <a class="nav-link link text-white display-4" href="/Admin">
                                     <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
                                     Admin Page
                                 </a>
-                            }
-                        }
-                    </li>
 
+                            </li>
+                        }
+                    }
                 </ul>
 
             </div>

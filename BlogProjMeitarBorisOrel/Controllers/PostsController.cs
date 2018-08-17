@@ -9,6 +9,7 @@ using BlogProjMeitarBorisOrel.Data;
 using BlogProjMeitarBorisOrel.Models;
 using BlogProjMeitarBorisOrel.Models.Blog;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogProjMeitarBorisOrel.Controllers
 {
@@ -223,6 +224,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View(post);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Posts/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -277,6 +279,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             ViewData["categoryID"] = new SelectList(_context.Set<Categories>(), "ID", "Category_Name");
             return View(post);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int? id)
