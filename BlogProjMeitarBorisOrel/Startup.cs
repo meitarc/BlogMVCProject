@@ -15,7 +15,7 @@ using BlogProjMeitarBorisOrel.Services;
 
 namespace BlogProjMeitarBorisOrel
 {
-    public class Startup 
+    public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -36,7 +36,7 @@ namespace BlogProjMeitarBorisOrel
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-        
+
             services.AddMvc();
         }
 
@@ -67,7 +67,7 @@ namespace BlogProjMeitarBorisOrel
 
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,IServiceProvider services)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
