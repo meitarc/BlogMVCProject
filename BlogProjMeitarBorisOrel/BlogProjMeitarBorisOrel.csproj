@@ -21,6 +21,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Accord">
+      <HintPath>MachineLearning\Accord.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.MachineLearning">
+      <HintPath>MachineLearning\Accord.MachineLearning.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Math">
+      <HintPath>MachineLearning\Accord.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Math.Core">
+      <HintPath>MachineLearning\Accord.Math.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Statistics">
+      <HintPath>MachineLearning\Accord.Statistics.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="Views\Shared\_Layout2.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
