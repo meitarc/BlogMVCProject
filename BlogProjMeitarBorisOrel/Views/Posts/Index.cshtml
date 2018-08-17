@@ -136,6 +136,7 @@
 
     </tbody>
 </table>
+
 <h3 id="h33">h333</h3>
 <script>
 $.get("/ProductTags/getJson10MostUsedTags", {}, function (data) {
@@ -156,7 +157,7 @@ $.get("/ProductTags/getJson10MostUsedTags", {}, function (data) {
     </script>
 
 
-@*<meta charset="utf-8">*@
+<meta charset="utf-8">
 <style>
 
     body {
@@ -289,7 +290,7 @@ svg.call(tip);
 });
 
  function type(d) {
-         d.Count = +d.Count;
+         d.Count += d.Count;
      return d;
  }
 

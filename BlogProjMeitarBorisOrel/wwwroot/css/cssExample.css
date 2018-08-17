@@ -1,0 +1,29 @@
+﻿h1 {
+    text-shadow: 2px 2px #ff0000;
+}
+div {
+    width: 100px;
+    height: 100px;
+    background: red;
+    -webkit-transition: width 2s; /* Safari */
+    transition: width 2s;
+}
+
+div {
+    column-count: 3;
+}
+
+@font-face {
+    font-family: myFirstFont;
+    src: url(sansation_light.woff);
+}
+
+#example1 {
+    border: 2px solid red;
+    border-radius: 25px;
+}
+
+#example2 {
+    border: 2px solid red;
+    border-radius: 50px 20px;
+}
