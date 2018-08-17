@@ -56,7 +56,7 @@ namespace BlogProjMeitarBorisOrel
             }
             //Assign Admin role to the main User here we have given our newly loregistered login id for Admin management  
             ApplicationUser user = await UserManager.FindByEmailAsync("borisbinaev@gmail.com");
-            var User = new ApplicationUser();
+            //var User = new ApplicationUser();
             await UserManager.AddToRoleAsync(user, "Admin");
 
         }

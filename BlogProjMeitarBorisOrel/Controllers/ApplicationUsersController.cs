@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BlogProjMeitarBorisOrel.Data;
 using BlogProjMeitarBorisOrel.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogProjMeitarBorisOrel.Controllers
 {
@@ -18,7 +19,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         {
             _context = context;
         }
-
+        
         // GET: ApplicationUsers
         public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy, string oBy)
         {
