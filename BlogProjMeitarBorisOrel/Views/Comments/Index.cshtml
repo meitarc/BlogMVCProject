@@ -5,43 +5,65 @@
 }
 
 <h2>Comments</h2>
+<p>My family and I visited The Epcot center this summer.</p>
 
+<aside>
+    <h4>Epcot Center</h4>
+    <p>The Epcot Center is a theme park in Disney World, Florida.</p>
+</aside>
+<article>
+    <header>
+        <h1>Most important heading here</h1>
+        <h3>Less important heading here</h3>
+        <p>Some additional information here</p>
+    </header>
+    <p>Lorem Ipsum dolor set amet....</p>
+</article>
+<footer>
+    <p>Posted by: Hege Refsnes</p>
+    <p>
+        Contact information: <a href="mailto:someone@example.com">
+            someone@example.com
+        </a>.
+    </p>
+</footer>
 <p>
+
     <a asp-action="Create">Add a new comment</a>
 </p>
 @using (Html.BeginForm())
 {
-<p>
-    Find by Title: @Html.TextBox("SearchString")
-    Text: @Html.TextBox("SearchString2")
-    Author Name: @Html.TextBox("SearchString3")
-    <input type="submit" value="Search" />
+    <p>
+        Find by Title: @Html.TextBox("SearchString")
+        Text: @Html.TextBox("SearchString2")
+        Author Name: @Html.TextBox("SearchString3")
+        <input type="submit" value="Search" />
 
-    <select name="gBy">
-        <option value="">No Group</option>
-        <option value="Aname">Author Name</option>
-        <option value="title">Title</option>
-    </select>
+        <select name="gBy">
+            <option value="">No Group</option>
+            <option value="Aname">Author Name</option>
+            <option value="title">Title</option>
+        </select>
 
-    <input type="submit" value="Group By" />
+        <input type="submit" value="Group By" />
 
-    <select name="jBy">
-        <option value="">No Join</option>
-        <option value="post">Posts</option>
+        <select name="jBy">
+            <option value="">No Join</option>
+            <option value="post">Posts</option>
 
-    </select>
+        </select>
 
-    <input type="submit" value="Join By" />
+        <input type="submit" value="Join By" />
 
-    <select name="oBy">
-        <option value="">No Order</option>
-        <option value="title">Title</option>
-        <option value="author">Author_Name</option>
+        <select name="oBy">
+            <option value="">No Order</option>
+            <option value="title">Title</option>
+            <option value="author">Author_Name</option>
 
-    </select>
+        </select>
 
-    <input type="submit" value="Order By" />
-</p>
+        <input type="submit" value="Order By" />
+    </p>
 }
 <table class="table">
     <thead>
@@ -76,38 +98,38 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUserID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PublishedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author_Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Counter)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumOfLikes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostID)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationUserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Counter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumOfLikes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostID)
+                </td>
 
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
