@@ -11,29 +11,29 @@
 <div>
     <dl class="dl-horizontal">
         @*<dt>
-            @Html.DisplayNameFor(model => model.PublishedDate)
-        </dt>
-        <dd>
+                @Html.DisplayNameFor(model => model.PublishedDate)
+            </dt>
+            <dd>
 
-        </dd>
-        <dt>
-        @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
+            </dd>
+            <dt>
+            @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
 
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Author_Name)
-        </dt>
-        <dd>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Author_Name)
+            </dt>
+            <dd>
 
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
-        <dd>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Text)
+            </dt>
+            <dd>
 
-        </dd>*@
+            </dd>*@
         <br />
         <dt>
             @Html.DisplayNameFor(model => model.ApplicationUserID)
@@ -57,8 +57,12 @@
 
     </dl>
 
-
-
+    @foreach (var item in Model.Comments)
+    {
+        <br />
+        <b>Comment: </b>@Html.DisplayFor(modelItem => item.Text)
+    }
+    <br />
     <img src="~/images/weather.gif" height="60">
     <br />
     @*<p id="reply"></p>*@
@@ -104,7 +108,7 @@
             $.get("https://api.openweathermap.org/data/2.5/weather?lat="+(mylat)+"&lon="+(mylng)+"&APPID=c4d13834034b7d4cbb1de048544b6831&units=metric", function (response) {
 
             //response
-               
+
                 console.log(response);
                 $("#reply").text(response);
                 $("#temp").text(response.main.temp);
@@ -118,11 +122,7 @@
     @*$.get("http://api.openweathermap.org/data/2.5/weather?lat={" + wlat + "}&lon={" + wlng + "}&APPID=c4d13834034b7d4cbb1de048544b6831", function (response) {*@
 
 
-    @foreach (var item in Model.Comments)
-    {
-        <br />
-        <b>Comment: </b>@Html.DisplayFor(modelItem => item.Text)
-    }
+
 
 
     <div>
