@@ -318,47 +318,68 @@ namespace BlogProjMeitarBorisOrel.Controllers
         {
             return _context.Post.Any(e => e.ID == id);
         }
-
-        //[HttpGet]
-        ////return json with 10 most used tags
-        //public JsonResult getJsontop10Categories()
-        //{
-
-        //    var p =
-        //    from u in _context.Post
-        //    group u by u.categoryID into g
-        //    select new { categoryID = g.Key};
-        //    List<categoryIDCount> mylist = new List<categoryIDCount>();
-        //    foreach (var x in p)
-        //    {
-        //        var myjson = new categoryIDCount { Name = _context.Tag.Where(t => t.TagID == x.Key).FirstOrDefault().Name, Count = x.Count() };
-        //        mylist.Add(myjson);
-        //    }
-        //    mylist.OrderBy(x => x.Count).Take(10);
-        //    return Json(mylist);
-        //}
-
-        //public JsonResult getJson10MostUsedTags()
-        //{
-        //    var p =
-        //    from u in _context.Post
-        //    group u by u.categoryID into g
-        //    select new { categoryID = g.Key, count = g.Count() };
-
-
-        //    // var bh = _context.categoryID.GroupBy(x => x.TagID);
-        //    List<categoryIDCount> mylist = new List<categoryIDCount>();
-        //    foreach (var x in p)
-        //    {
-        //        var myjson = new categoryIDCount { Name = _context.Tag.Where(t => t.TagID == x.Key).FirstOrDefault().Name, Count = x.Count() };
-        //        mylist.Add(myjson);
-        //    }
-        //    mylist.OrderBy(x => x.Count).Take(10);
-        //    return Json(mylist);
-        //}
-
-
+        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        //return json with 10 most used tags
+        public JsonResult getJson10MostUsedTags()
+        {
+            var bh = _context.Categories.GroupBy(x => x.ID);
+            List<TagCount> mylist = new List<TagCount>();
+            foreach (var x in bh)
+            {
+                var myjson = new TagCount { Name = _context.Categories.Where(t => t.ID == x.Key).FirstOrDefault().Category_Name, Count = x.Count() };
+                mylist.Add(myjson);
+            }
+            mylist.OrderBy(x => x.Count).Take(10);
+            return Json(mylist);
+        }
     }
+    public class TagCount
+    {
+        public string Name { get; set; }
+        public int Count { get; set; }
+    }
+
+    //[HttpGet]
+    ////return json with 10 most used tags
+    //public JsonResult getJsontop10Categories()
+    //{
+
+    //    var p =
+    //    from u in _context.Post
+    //    group u by u.categoryID into g
+    //    select new { categoryID = g.Key};
+    //    List<categoryIDCount> mylist = new List<categoryIDCount>();
+    //    foreach (var x in p)
+    //    {
+    //        var myjson = new categoryIDCount { Name = _context.Tag.Where(t => t.TagID == x.Key).FirstOrDefault().Name, Count = x.Count() };
+    //        mylist.Add(myjson);
+    //    }
+    //    mylist.OrderBy(x => x.Count).Take(10);
+    //    return Json(mylist);
+    //}
+
+    //public JsonResult getJson10MostUsedTags()
+    //{
+    //    var p =
+    //    from u in _context.Post
+    //    group u by u.categoryID into g
+    //    select new { categoryID = g.Key, count = g.Count() };
+
+
+    //    // var bh = _context.categoryID.GroupBy(x => x.TagID);
+    //    List<categoryIDCount> mylist = new List<categoryIDCount>();
+    //    foreach (var x in p)
+    //    {
+    //        var myjson = new categoryIDCount { Name = _context.Tag.Where(t => t.TagID == x.Key).FirstOrDefault().Name, Count = x.Count() };
+    //        mylist.Add(myjson);
+    //    }
+    //    mylist.OrderBy(x => x.Count).Take(10);
+    //    return Json(mylist);
+    //}
+
+
+}
 
 
 
@@ -367,4 +388,4 @@ namespace BlogProjMeitarBorisOrel.Controllers
         public string Name { get; set; }
         public int Count { get; set; }
     }
-}
+
