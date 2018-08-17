@@ -9,6 +9,7 @@ using BlogProjMeitarBorisOrel.Data;
 using BlogProjMeitarBorisOrel.Models;
 using Accord.MachineLearning.Rules;
 using BlogProjMeitarBorisOrel.Models.Blog;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BlogProjMeitarBorisOrel.Controllers
 {
@@ -246,6 +247,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             }
             return View(categories);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -297,6 +299,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             }
             return View(categories);
         }
+        [Authorize(Roles = "Admin")]
 
         // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)

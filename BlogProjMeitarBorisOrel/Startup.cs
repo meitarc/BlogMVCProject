@@ -55,9 +55,15 @@ namespace BlogProjMeitarBorisOrel
                 roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
             }
             //Assign Admin role to the main User here we have given our newly loregistered login id for Admin management  
-            ApplicationUser user = await UserManager.FindByEmailAsync("borisbinaev@gmail.com");
-            //var User = new ApplicationUser();
-            await UserManager.AddToRoleAsync(user, "Admin");
+            ApplicationUser user1 = await UserManager.FindByEmailAsync("meitarc@gmail.com");
+            ApplicationUser user2 = await UserManager.FindByEmailAsync("borisbinaev@gmail.com");
+            ApplicationUser user3 = await UserManager.FindByEmailAsync("orel13orel@gmail.com");
+
+            await UserManager.AddToRoleAsync(user1, "Admin");
+
+            await UserManager.AddToRoleAsync(user2, "Admin");
+
+            await UserManager.AddToRoleAsync(user3, "Admin");
 
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
