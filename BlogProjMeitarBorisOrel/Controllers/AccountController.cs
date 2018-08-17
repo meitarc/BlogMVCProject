@@ -19,6 +19,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
+
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -249,7 +250,8 @@ namespace BlogProjMeitarBorisOrel.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            //return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(PostsController.Index), "Posts");
         }
 
         [HttpPost]
@@ -337,7 +339,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
         {
             if (userId == null || code == null)
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(PostsController.Index), "Posts");
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -457,7 +459,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(PostsController.Index), "Posts");
             }
         }
 
