@@ -23,6 +23,9 @@ namespace BlogProjMeitarBorisOrel.Controllers
             _userManager = userManager;
         }
 
+
+
+
         // GET: Posts
         public async Task<IActionResult> Index(string searchString, string searchString2, string searchString3, string gBy, string jBy, string oBy)
         {
@@ -312,5 +315,53 @@ namespace BlogProjMeitarBorisOrel.Controllers
         {
             return _context.Post.Any(e => e.ID == id);
         }
+
+        //[HttpGet]
+        ////return json with 10 most used tags
+        //public JsonResult getJsontop10Categories()
+        //{
+
+        //    var p =
+        //    from u in _context.Post
+        //    group u by u.categoryID into g
+        //    select new { categoryID = g.Key};
+        //    List<categoryIDCount> mylist = new List<categoryIDCount>();
+        //    foreach (var x in p)
+        //    {
+        //        var myjson = new categoryIDCount { Name = _context.Tag.Where(t => t.TagID == x.Key).FirstOrDefault().Name, Count = x.Count() };
+        //        mylist.Add(myjson);
+        //    }
+        //    mylist.OrderBy(x => x.Count).Take(10);
+        //    return Json(mylist);
+        //}
+
+        //public JsonResult getJson10MostUsedTags()
+        //{
+        //    var p =
+        //    from u in _context.Post
+        //    group u by u.categoryID into g
+        //    select new { categoryID = g.Key, count = g.Count() };
+
+
+        //    // var bh = _context.categoryID.GroupBy(x => x.TagID);
+        //    List<categoryIDCount> mylist = new List<categoryIDCount>();
+        //    foreach (var x in p)
+        //    {
+        //        var myjson = new categoryIDCount { Name = _context.Tag.Where(t => t.TagID == x.Key).FirstOrDefault().Name, Count = x.Count() };
+        //        mylist.Add(myjson);
+        //    }
+        //    mylist.OrderBy(x => x.Count).Take(10);
+        //    return Json(mylist);
+        //}
+
+
+    }
+
+
+
+     public class categoryIDCount
+    {
+        public string Name { get; set; }
+        public int Count { get; set; }
     }
 }
