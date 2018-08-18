@@ -91,7 +91,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             //     [3] -> [4]; support: 3, confidence: 0.75, 
             //     [4] -> [3]; support: 3, confidence: 0.6 
             // };
-
+            ViewBag.category = classifier;
 
             if (gBy == "CDesc")
             {
