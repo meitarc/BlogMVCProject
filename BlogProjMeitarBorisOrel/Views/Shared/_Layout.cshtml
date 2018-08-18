@@ -127,17 +127,10 @@
             window.fbAsyncInit = function () {
                 FB.init({
                     appId: '249043415725802',
-                    cookie: true,
+                    autoLogAppEvents: true,
                     xfbml: true,
                     version: 'v3.1'
                 });
-
-                FB.AppEvents.logPageView();
-
-                FB.getLoginStatus(function (response) {
-                    statusChangeCallback(response);
-                });
-
             };
 
             (function (d, s, id) {
@@ -148,19 +141,58 @@
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
 
-            function statusChangeCallback(response) {
-                if (response.status === 'connected') {
-                    console.log('logged in Facebook');
 
-                } else if (response.status === 'not_authorized') {
-                    console.log('Facebook fucked us not_authorized');
-
-                } else if (response.status === 'unknown') {
-                    console.log('Facebook fucked us unknown ');
-
-            }
-
+            FB.ui({
+                method: 'share_open_graph',
+                action_type: 'og.likes',
+                action_properties: JSON.stringify({
+                    object: 'https://developers.facebook.com/docs/javascript/examples',
+                })
+            }, function (response) {
+                // Debug response (optional)
+                console.log(response);
+            });
         </script>
+        @*<script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '249043415725802',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.1'
+            });
+
+            FB.AppEvents.logPageView();
+
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function statusChangeCallback(response) {
+            if (response.status === 'connected') {
+                console.log('logged in Facebook');
+
+            } else if (response.status === 'not_authorized') {
+                console.log('Facebook fucked us not_authorized');
+
+            } else if (response.status === 'unknown') {
+                console.log('Facebook fucked us unknown ');
+
+        }
+
+        </script> *@
+
+        @*end facebook*@
         @*<script>
             window.fbAsyncInit = function () {
                 FB.init({
