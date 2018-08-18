@@ -61,7 +61,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             Apriori apriori = new Apriori(threshold: 3, confidence: 0);
 
             // Use the algorithm to learn a set matcher
-            AssociationRuleMatcher<int> classifier = apriori.Learn(dataset);
+            AssociationRuleMatcher<int> classifier = apriori.Learn(categories2);
 
             // Use the classifier to find orders that are similar to 
             // orders where clients have bought items 1 and 2 together:
@@ -91,7 +91,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             //     [3] -> [4]; support: 3, confidence: 0.75, 
             //     [4] -> [3]; support: 3, confidence: 0.6 
             // };
-
+            ViewBag.category = classifier;
 
             if (gBy == "CDesc")
             {
