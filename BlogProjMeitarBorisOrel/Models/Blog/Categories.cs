@@ -10,6 +10,7 @@ namespace BlogProjMeitarBorisOrel.Models.Blog
     public class Categories
     {
         [Key]
+
         public int ID { get; set; }
         [Required(ErrorMessage = "Category Name is required")]
         [Display(Name = "Category Name")]

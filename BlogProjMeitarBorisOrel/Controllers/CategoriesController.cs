@@ -34,33 +34,54 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
             // Let the database of transactions consist of following itemsets:
 
-            SortedSet<int>[] dataset =
+            //SortedSet<int>[] dataset =
+            //{
+            //    // Each row represents a set of items that have been bought 
+            //    // together. Each number is a SKU identifier for a product.
+            //    new SortedSet<int> { 1, 2, 3, 4 }, // bought 4 items
+            //    new SortedSet<int> { 1, 2, 4 },    // bought 3 items
+            //    new SortedSet<int> { 1, 2 },       // bought 2 items
+            //    new SortedSet<int> { 2, 3, 4 },    // ...
+            //    new SortedSet<int> { 2, 3 },
+            //    new SortedSet<int> { 3, 4 },
+            //    new SortedSet<int> { 2, 4 },
+            //};
+            //SortedSet<int> dataset2 = new SortedSet<int>();
+            var x = _context.User2.Include(user => user.Posts).Select(userPost => userPost.Posts).ToList();
+            var y = x.Select(delegate (ICollection<Post> posts2)
             {
-                // Each row represents a set of items that have been bought 
-                // together. Each number is a SKU identifier for a product.
-                new SortedSet<int> { 1, 2, 3, 4 }, // bought 4 items
-                new SortedSet<int> { 1, 2, 4 },    // bought 3 items
-                new SortedSet<int> { 1, 2 },       // bought 2 items
-                new SortedSet<int> { 2, 3, 4 },    // ...
-                new SortedSet<int> { 2, 3 },
-                new SortedSet<int> { 3, 4 },
-                new SortedSet<int> { 2, 4 },
-            };
-
+                return posts2.AsQueryable().Select(post => post.categoryID).ToArray();
+            });
+            var categories2 = y.ToArray();
             // We will use Apriori to determine the frequent item sets of this database.
             // To do this, we will say that an item set is frequent if it appears in at 
             // least 3 transactions of the database: the value 3 is the support threshold.
 
             // Create a new a-priori learning algorithm with support 3
-            Apriori apriori = new Apriori(threshold: 3, confidence: 0);
+            Apriori apriori = new Apriori(threshold: 1, confidence: 0);
 
             // Use the algorithm to learn a set matcher
-            AssociationRuleMatcher<int> classifier = apriori.Learn(dataset);
+            AssociationRuleMatcher<int> classifier = apriori.Learn(categories2);
 
             // Use the classifier to find orders that are similar to 
             // orders where clients have bought items 1 and 2 together:
-            int[][] matches = classifier.Decide(new[] { 1, 2 });
-
+            int[][] matches = classifier.Decide(new[] { 1 });
+            List<Post> posts = new List<Post>();
+            HashSet<int> hs = new HashSet<int>();
+            
+            foreach(int[] e in matches)
+            {
+                foreach(int f in e)
+                {
+                    hs.Add(f);
+                }
+                    
+            }
+            foreach(int id in hs)
+            {
+                posts.Add(_context.Post.FirstOrDefault(a => a.categoryID == id));
+            }
+            
             // The result should be:
             // 
             //   new int[][]
@@ -74,7 +95,6 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
             // We can also obtain the association rules from frequent itemsets:
             AssociationRule<int>[] rules = classifier.Rules;
-
             // The result will be:
             // {
             //     [1] -> [2]; support: 3, confidence: 1, 
@@ -86,8 +106,8 @@ namespace BlogProjMeitarBorisOrel.Controllers
             //     [3] -> [4]; support: 3, confidence: 0.75, 
             //     [4] -> [3]; support: 3, confidence: 0.6 
             // };
-
-
+            ViewBag.posts = posts.Take(3).ToList();
+           
             if (gBy == "CDesc")
             {
                 var userNamesByID =
