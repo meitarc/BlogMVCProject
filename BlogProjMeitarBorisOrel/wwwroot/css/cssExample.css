@@ -1,15 +1,26 @@
-﻿h1 {
+﻿@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('/fonts/glyphicons-halflings-regular.eot');
+    src: url('/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
+h1 {
     text-shadow: 2px 2px #ff0000;
 }
 div {
     width: 100px;
     height: 100px;
-    background: red;
-    -webkit-transition: width 2s; /* Safari */
-    transition: width 2s;
+    background:url(/images/telephone.jpg);
+    -webkit-transition: width 2s, height 4s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s, height 4s;
 }
 
-div {
+    div:hover {
+        width: 300px;
+        height: 150px;
+    }
+p {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
     column-count: 3;
 }
 
@@ -18,7 +29,7 @@ div {
     src: url(sansation_light.woff);
 }
 
-#example1 {
+#bradios {
     border: 2px solid red;
     border-radius: 25px;
 }
@@ -27,3 +38,29 @@ div {
     border: 2px solid red;
     border-radius: 50px 20px;
 }
+
+nav {
+    font-size: xx-large;
+    Text-shadow: 2px 2px #ff0000;
+}
+aside{
+    font-size:large;
+}
+aside h4{
+    color:crimson;
+}
+
+aside p{
+    color:blue;
+}
+
+footer {
+    color: green;
+    Transition: all;
+    font-family: Glyphicons Halfling;
+}
+header{
+    font-size:xx-large;
+    font-family: 'Blackadder ITC','Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande';
+}
+
