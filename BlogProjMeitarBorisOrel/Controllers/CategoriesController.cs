@@ -58,14 +58,14 @@ namespace BlogProjMeitarBorisOrel.Controllers
             // least 3 transactions of the database: the value 3 is the support threshold.
 
             // Create a new a-priori learning algorithm with support 3
-            Apriori apriori = new Apriori(threshold: 3, confidence: 0);
+            Apriori apriori = new Apriori(threshold: 2, confidence: 0.3);
 
             // Use the algorithm to learn a set matcher
-            AssociationRuleMatcher<int> classifier = apriori.Learn(dataset);
+            AssociationRuleMatcher<int> classifier = apriori.Learn(categories2);
 
             // Use the classifier to find orders that are similar to 
             // orders where clients have bought items 1 and 2 together:
-            int[][] matches = classifier.Decide(new[] { 1, 2 });
+            int[][] matches = classifier.Decide(new[] { 1 });
             
             // The result should be:
             // 
