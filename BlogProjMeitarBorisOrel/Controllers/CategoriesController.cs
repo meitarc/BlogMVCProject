@@ -47,7 +47,12 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 new SortedSet<int> { 2, 4 },
             };
             SortedSet<int> dataset2 = new SortedSet<int>();
-            //_context.User2.Include(user => user.Posts).Select(userPost => userPost.Posts).Select(post => post.category)
+            var x = _context.User2.Include(user => user.Posts).Select(userPost => userPost.Posts).ToList();
+            var y = x.Select(delegate (ICollection<Post> posts)
+            {
+                return posts.AsQueryable().Select(post => post.categoryID).ToArray();
+            });
+            var categories2 = y.ToArray();
             // We will use Apriori to determine the frequent item sets of this database.
             // To do this, we will say that an item set is frequent if it appears in at 
             // least 3 transactions of the database: the value 3 is the support threshold.
