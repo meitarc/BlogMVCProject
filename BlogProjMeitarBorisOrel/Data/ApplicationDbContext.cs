@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using BlogProjMeitarBorisOrel.Models;
 using BlogProjMeitarBorisOrel.Models.Blog;
-
 namespace BlogProjMeitarBorisOrel.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
