@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Html Examples</title>
+    <link rel="stylesheet" href="/css/cssExample.css">
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+<body>
+
+
+    <aside>
+        <h4>Epcot Center</h4>
+        <p>The Epcot Center is a theme park in Disney World, Florida.</p>
+    </aside>
+    <article>
+        <header>
+            Blog by: Meitar Cohen<br /> Boris Benayev<br />Orel Ezhakiyan
+        </header>
+        <p>Lorem Ipsum dolor set amet....</p>
+    </article>
+    <footer id="bradios">
+
+        <p>
+            <div></div>
+            Contact us:
+            <a href="mailto:meitarc@gmail.com">
+                meitarc@gmail.com
+            </a>
+            <br />
+            <a href="mailto:borisbinaev@gmail.com ">
+                borisbinaev@gmail.com
+            </a>
+            <br />
+            <a href="mailto:orel13orel@gmail.com  ">
+                orel13orel@gmail.com
+            </a>
+
+        </p>
+    </footer>
+
+    <nav>
+        Hello Shay!
+        <br />
+        This is our project
+
+    </nav>
+    <p class="newspaper">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
+    </p>
+
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.font = "30px Arial";
+        ctx.strokeText("Hello World", 10, 50);
+    </script>
+
+
+    <section></section>
+
+
+    <video width="400" controls autoplay>
+        <source src="/Pink_Panther.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <br />
+    <audio controls loop>
+        <source src="/neta.mp3" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+    <br />
+    <button onclick="goBack()">Go Back</button>
+</body>
+</html>
