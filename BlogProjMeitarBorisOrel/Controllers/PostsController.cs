@@ -323,11 +323,11 @@ namespace BlogProjMeitarBorisOrel.Controllers
         //return json with 10 most used tags
         public JsonResult getJson10MostUsedTags()
         {
-            var bh = _context.Categories.GroupBy(x => x.ID);
+            var bh = _context.Post.GroupBy(x => x.ID);
             List<TagCount> mylist = new List<TagCount>();
             foreach (var x in bh)
             {
-                var myjson = new TagCount { Name = _context.Categories.Where(t => t.ID == x.Key).FirstOrDefault().Category_Name, Count = x.Count() };
+                var myjson = new TagCount { Name = _context.Post.Where(t => t.ID == x.Key).FirstOrDefault().Author_Name, Count = x.Count() };
                 mylist.Add(myjson);
             }
             mylist.OrderBy(x => x.Count).Take(10);

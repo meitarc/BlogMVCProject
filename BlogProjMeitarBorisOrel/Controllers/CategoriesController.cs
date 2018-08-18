@@ -46,7 +46,8 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 new SortedSet<int> { 3, 4 },
                 new SortedSet<int> { 2, 4 },
             };
-
+            SortedSet<int> dataset2 = new SortedSet<int>();
+            //_context.User2.Include(user => user.Posts).Select(userPost => userPost.Posts).Select(post => post.category)
             // We will use Apriori to determine the frequent item sets of this database.
             // To do this, we will say that an item set is frequent if it appears in at 
             // least 3 transactions of the database: the value 3 is the support threshold.
@@ -60,7 +61,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             // Use the classifier to find orders that are similar to 
             // orders where clients have bought items 1 and 2 together:
             int[][] matches = classifier.Decide(new[] { 1, 2 });
-
+            
             // The result should be:
             // 
             //   new int[][]
@@ -74,7 +75,6 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
             // We can also obtain the association rules from frequent itemsets:
             AssociationRule<int>[] rules = classifier.Rules;
-
             // The result will be:
             // {
             //     [1] -> [2]; support: 3, confidence: 1, 

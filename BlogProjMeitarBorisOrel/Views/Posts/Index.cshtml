@@ -157,6 +157,7 @@ $.get("/ProductTags/getJson10MostUsedTags", {}, function (data) {
 
 
 @*<meta charset="utf-8">*@
+<meta charset="utf-8">
 <style>
 
     body {
@@ -214,123 +215,124 @@ $.get("/ProductTags/getJson10MostUsedTags", {}, function (data) {
 
     @*<script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>*@
+
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
-<script>d3.select('h3').style('color', 'red');</script>
-<script>
-
-
- var margin = {top: 40, right: 20, bottom: 30, left: 40 },
-         width = 960 - margin.left - margin.right,
-         height = 500 - margin.top - margin.bottom;
-
-     var formatPercent = d3.format(".0%");
-
-     var x = d3.scale.ordinal()
-         .rangeRoundBands([0, width], .1);
-
-     var y = d3.scale.linear()
-         .range([height, 0]);
-
-     var xAxis = d3.svg.axis()
-         .scale(x)
-         .orient("bottom");
-
-     var yAxis = d3.svg.axis()
-         .scale(y)
-         .orient("left")
-         .tickFormat(formatPercent);
-
-     var tip = d3.tip()
-         .attr('class', 'd3-tip')
-         .offset([-10, 0])
-     .html(function (d) {
-         return "<strong>Count:</strong> <span style='color:red'>" + d.Count + "</span>";
- })
-
-var svg = d3.select("body").append("svg")
- .attr("width", width + margin.left + margin.right)
- .attr("height", height + margin.top + margin.bottom)
- .append("g")
- .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-svg.call(tip);
-
- d3.tsv("data.tsv", type, function (error, data) {
-         x.domain(data.map(function (d) { return d.Name; }));
-     y.domain([0, d3.max(data, function (d) { return d.Count; })]);
-
-     svg.append("g")
-         .attr("class", "x axis")
-         .attr("transform", "translate(0," + height + ")")
-         .call(xAxis);
-
-     svg.append("g")
-         .attr("class", "y axis")
-         .call(yAxis)
-         .append("text")
-         .attr("transform", "rotate(-90)")
-         .attr("y", 6)
-         .attr("dy", ".71em")
-         .style("text-anchor", "end")
-         .text("Count");
-
-     svg.selectAll(".bar")
-         .data(data)
-         .enter().append("rect")
-         .attr("class", "bar")
-         .attr("x", function (d) { return x(d.Name); })
-     .attr("width", x.rangeBand())
-         .attr("y", function (d) { return y(d.Count); })
-         .attr("height", function (d) { return height - y(d.Count); })
-     .on('mouseover', tip.show)
-     .on('mouseout', tip.hide)
-
-});
-
- function type(d) {
-         d.Count = +d.Count;
-     return d;
- }
-
-</script>
-@*
-    <p >D3Graph</p>
-    <svg width="960" height="500"></svg>
+    <script>d3.select('h3').style('color', 'red');</script>
     <script>
-        d3.select('p').text("dddddddd").style('color', 'blue');
-        // d3.selectall();
-        $(documant).ready(function () {
-            $ajax.({
-                type: "GET",
-                url: "/Post/Author Name",
-                success: function (result) {
-                    div = document.getElementById("Author Name");
-                    tmp = ""
-                    for (var i = 0; i < result.length; i++) {
-                        var disabled = (result[i] == currentCategory) ? "disabled" : "/**/"
-                        console.log(result[i], disabled);
-                        var tmp = $("<a></a>", {
-                            text: result[i],
-                            "id": result[i],
-                            "class":"btn btn-info"+disabled,
-                            "role": "button",
-                            "href": herf + result[i],
 
 
-                        }).appendTo(div)
+        var margin = { top: 40, right: 20, bottom: 30, left: 40 },
+            width = 960 - margin.left - margin.right,
+            height = 500 - margin.top - margin.bottom;
 
-                    }
-                },
-                error: function (response) {alert('error')}
+        var formatPercent = d3.format(".0%");
 
+        var x = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1);
+
+        var y = d3.scale.linear()
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .tickFormat(formatPercent);
+
+        var tip = d3.tip()
+            .attr('class', 'd3-tip')
+            .offset([-10, 0])
+            .html(function (d) {
+                return "<strong>Count:</strong> <span style='color:red'>" + d.Count + "</span>";
             })
 
+        var svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        svg.call(tip);
+
+        d3.tsv("data.tsv", type, function (error, data) {
+            x.domain(data.map(function (d) { return d.Name; }));
+            y.domain([0, d3.max(data, function (d) { return d.Count; })]);
+
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis)
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 6)
+                .attr("dy", ".71em")
+                .style("text-anchor", "end")
+                .text("Count");
+
+            svg.selectAll(".bar")
+                .data(data)
+                .enter().append("rect")
+                .attr("class", "bar")
+                .attr("x", function (d) { return x(d.Name); })
+                .attr("width", x.rangeBand())
+                .attr("y", function (d) { return y(d.Count); })
+                .attr("height", function (d) { return height - y(d.Count); })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide)
 
         });
 
+        function type(d) {
+            d.Count = +d.Count;
+            return d;
+        }
+        
+    </script>
+    @*
+        <p >D3Graph</p>
+        <svg width="960" height="500"></svg>
+        <script>
+            d3.select('p').text("dddddddd").style('color', 'blue');
+            // d3.selectall();
+            $(documant).ready(function () {
+                $ajax.({
+                    type: "GET",
+                    url: "/Post/Author Name",
+                    success: function (result) {
+                        div = document.getElementById("Author Name");
+                        tmp = ""
+                        for (var i = 0; i < result.length; i++) {
+                            var disabled = (result[i] == currentCategory) ? "disabled" : "/**/"
+                            console.log(result[i], disabled);
+                            var tmp = $("<a></a>", {
+                                text: result[i],
+                                "id": result[i],
+                                "class":"btn btn-info"+disabled,
+                                "role": "button",
+                                "href": herf + result[i],
 
-        </script>*@
+
+                            }).appendTo(div)
+
+                        }
+                    },
+                    error: function (response) {alert('error')}
+
+                })
+
+
+            });
+
+
+            </script>*@
 
 
 
