@@ -284,5 +284,30 @@ namespace BlogProjMeitarBorisOrel.Controllers
         {
             return _context.Comment.Any(e => e.ID == id);
         }
+        [HttpGet]
+        public JsonResult Graph()
+        {
+            var h = from c in _context.Comment
+                    join p in _context.Post
+                    on c.PostID equals p.ID into gr
+                    select new commentCount { Name = c.Title, Count = gr.Count() };
+            List<commentCount> mylist = new List<commentCount>();
+            foreach (var x in h)
+            {
+                var myjson1 = new commentCount { Name = x.Name, Count = x.Count };
+                mylist.Add(myjson1);
+            }
+            mylist = mylist.OrderByDescending(x => x.Count).Take(4).ToList();
+            return Json(mylist);
+
+
+        }
     }
 }
+
+public class commentCount
+{
+    public string Name { get; set; }
+    public int Count { get; set; }
+}
+
