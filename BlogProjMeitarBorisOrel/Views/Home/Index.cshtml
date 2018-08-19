@@ -1,9 +1,38 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#hide").click(function () {
+            $("p").hide()
+        })
+        $("#show").click(function () {
+            $("p").show()
+        })
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#h3").click(function () {
+            $("#h3").hide()
+        })
+    })
+</script>
 
-    
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+<h3 id="h3">click me to make me disappear</h3>
+
+
+<p id="p1">If you click on the "Hide" button, I will disappear.</p>
+<button id="hide" type="button">Hide</button>
+<button id="show" type="button">Show</button>
+
+
+
+
+
+
+
+@*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -104,4 +133,4 @@
                 <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
             </ul>
         </div>
-</div>
+    </div>*@
