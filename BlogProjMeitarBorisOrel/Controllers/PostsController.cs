@@ -252,10 +252,6 @@ namespace BlogProjMeitarBorisOrel.Controllers
         }
 
         // GET: Posts/Details/5
-        public void AddLike(Post post)
-        {
-            post.NumOfLikes++;
-        }
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -273,7 +269,6 @@ namespace BlogProjMeitarBorisOrel.Controllers
             {
                 return NotFound();
             }
-            AddLike(post);
             return View(post);
         }
 
