@@ -159,7 +159,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
             {
                 return NotFound();
             }
-
+           
             return View(comment);
         }
 
@@ -284,5 +284,30 @@ namespace BlogProjMeitarBorisOrel.Controllers
         {
             return _context.Comment.Any(e => e.ID == id);
         }
+        [HttpGet]
+        public JsonResult Graph()
+        {
+            var h = from p in _context.Post
+                    join c in _context.Comment
+                    on p.ID equals c.PostID into gr
+                    select new postCount { Name = p.Title, Count = gr.Count() };
+            List<postCount> mylist = new List<postCount>();
+            foreach (var x in h)
+            {
+                var myjson1 = new postCount { Name = x.Name, Count = x.Count };
+                mylist.Add(myjson1);
+            }
+            mylist = mylist.OrderByDescending(x => x.Count).Take(4).ToList();
+            return Json(mylist);
+
+
+        }
     }
 }
+
+public class postCount
+{
+    public string Name { get; set; }
+    public int Count { get; set; }
+}
+
