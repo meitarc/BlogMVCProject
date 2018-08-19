@@ -416,7 +416,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
                 var myjson = new categoryCount { Name = x.Name, Count = x.Count };
                 mylist.Add(myjson);
             }
-            mylist = mylist.OrderBy(x => x.Count).Take(4).ToList();
+            mylist = mylist.OrderByDescending(x => x.Count).Take(4).ToList();
             return Json(mylist);
             
 
