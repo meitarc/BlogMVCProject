@@ -30,7 +30,6 @@ namespace BlogProjMeitarBorisOrel.Models
         
         [Required(ErrorMessage = "Text is required")]
         public string Text { get; set; }
-        public int NumOfLikes { get; set; }
 
         public double Lat { get; set; }
         public double Lng { get; set; }
