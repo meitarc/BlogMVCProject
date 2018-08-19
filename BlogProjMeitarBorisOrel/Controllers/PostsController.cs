@@ -200,9 +200,9 @@ namespace BlogProjMeitarBorisOrel.Controllers
 
                 var posts = from s in _context.Post
                             select s;
-      
-                    posts = posts.OrderBy(s => s.Title);
-                
+
+                posts = posts.OrderBy(s => s.Title);
+
 
                 return View(posts.ToList());
                 //var applicationDbContext = _context.Post.Include(p => p.User);
@@ -402,74 +402,94 @@ namespace BlogProjMeitarBorisOrel.Controllers
         {
             return _context.Post.Any(e => e.ID == id);
         }
-        [Authorize(Roles = "Admin")]
+       
         [HttpGet]
-        //return json with 10 most used tags
-        public JsonResult getJson10MostUsedTags()
+        public JsonResult Graph()
         {
-            var bh = _context.Post.GroupBy(x => x.ID);
-            List<TagCount> mylist = new List<TagCount>();
-            foreach (var x in bh)
+            var h = from c in _context.Categories
+                    join p in _context.Post
+                    on c.ID equals p.categoryID into gr
+                    select new categoryCount { Name = c.Category_Name, Count = gr.Count() };
+            List<categoryCount> mylist = new List<categoryCount>();
+            foreach(var x in h)
             {
-                var myjson = new TagCount { Name = _context.Post.Where(t => t.ID == x.Key).FirstOrDefault().Author_Name, Count = x.Count() };
+                var myjson = new categoryCount { Name = x.Name, Count = x.Count };
                 mylist.Add(myjson);
             }
-            mylist.OrderBy(x => x.Count).Take(10);
+            mylist = mylist.OrderByDescending(x => x.Count).Take(4).ToList();
             return Json(mylist);
+            
+
         }
     }
-    public class TagCount
-    {
-        public string Name { get; set; }
-        public int Count { get; set; }
-    }
-
-    //[HttpGet]
-    ////return json with 10 most used tags
-    //public JsonResult getJsontop10Categories()
-    //{
-
-    //    var p =
-    //    from u in _context.Post
-    //    group u by u.categoryID into g
-    //    select new { categoryID = g.Key};
-    //    List<categoryIDCount> mylist = new List<categoryIDCount>();
-    //    foreach (var x in p)
-    //    {
-    //        var myjson = new categoryIDCount { Name = _context.Tag.Where(t => t.TagID == x.Key).FirstOrDefault().Name, Count = x.Count() };
-    //        mylist.Add(myjson);
-    //    }
-    //    mylist.OrderBy(x => x.Count).Take(10);
-    //    return Json(mylist);
-    //}
-
-    //public JsonResult getJson10MostUsedTags()
-    //{
-    //    var p =
-    //    from u in _context.Post
-    //    group u by u.categoryID into g
-    //    select new { categoryID = g.Key, count = g.Count() };
-
-
-    //    // var bh = _context.categoryID.GroupBy(x => x.TagID);
-    //    List<categoryIDCount> mylist = new List<categoryIDCount>();
-    //    foreach (var x in p)
-    //    {
-    //        var myjson = new categoryIDCount { Name = _context.Tag.Where(t => t.TagID == x.Key).FirstOrDefault().Name, Count = x.Count() };
-    //        mylist.Add(myjson);
-    //    }
-    //    mylist.OrderBy(x => x.Count).Take(10);
-    //    return Json(mylist);
-    //}
-
-
 }
 
+//return json with 10 most used tags
+//    public JsonResult getJson10MostUsedTags()
+//    {
+//        var bh = _context.Post.GroupBy(x => x.categoryID);
+//        List<TagCount> mylist = new List<TagCount>();
+//        foreach (var x in bh)
+//        {
+//            var myjson = new TagCount { Name = _context.Post.Where(t => t.categoryID == x.Key).FirstOrDefault().Title, Count = x.Count() };
+//            mylist.Add(myjson);
+//        }
+//        mylist.OrderBy(x => x.Count).Take(10);
+//        return Json(mylist);
+//    }
+//}
+//public class TagCount
+//{
+//    public string Name { get; set; }
+//    public int Count { get; set; }
+//}
+
+//[HttpGet]
+////return json with 10 most used tags
+//public JsonResult getJsontop10Categories()
+//{
+
+//    var p =
+//    from u in _context.Post
+//    group u by u.categoryID into g
+//    select new { categoryID = g.Key};
+//    List<categoryIDCount> mylist = new List<categoryIDCount>();
+//    foreach (var x in p)
+//    {
+//        var myjson = new categoryIDCount { Name = _context.Tag.Where(t => t.TagID == x.Key).FirstOrDefault().Name, Count = x.Count() };
+//        mylist.Add(myjson);
+//    }
+//    mylist.OrderBy(x => x.Count).Take(10);
+//    return Json(mylist);
+//}
+
+//public JsonResult getJson10MostUsedTags()
+//{
+//    var p =
+//    from u in _context.Post
+//    group u by u.categoryID into g
+//    select new { categoryID = g.Key, count = g.Count() };
 
 
-     public class categoryIDCount
-    {
-        public string Name { get; set; }
-        public int Count { get; set; }
-    }
+//    // var bh = _context.categoryID.GroupBy(x => x.TagID);
+//    List<categoryIDCount> mylist = new List<categoryIDCount>();
+//    foreach (var x in p)
+//    {
+//        var myjson = new categoryIDCount { Name = _context.Tag.Where(t => t.TagID == x.Key).FirstOrDefault().Name, Count = x.Count() };
+//        mylist.Add(myjson);
+//    }
+//    mylist.OrderBy(x => x.Count).Take(10);
+//    return Json(mylist);
+//}
+
+
+
+
+
+
+public class categoryCount
+{
+    public string Name { get; set; }
+    public int Count { get; set; }
+}
 
