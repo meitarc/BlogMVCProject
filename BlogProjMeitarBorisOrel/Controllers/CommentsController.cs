@@ -287,14 +287,14 @@ namespace BlogProjMeitarBorisOrel.Controllers
         [HttpGet]
         public JsonResult Graph()
         {
-            var h = from c in _context.Comment
-                    join p in _context.Post
-                    on c.PostID equals p.ID into gr
-                    select new commentCount { Name = c.Title, Count = gr.Count() };
-            List<commentCount> mylist = new List<commentCount>();
+            var h = from p in _context.Post
+                    join c in _context.Comment
+                    on p.ID equals c.PostID into gr
+                    select new postCount { Name = p.Title, Count = gr.Count() };
+            List<postCount> mylist = new List<postCount>();
             foreach (var x in h)
             {
-                var myjson1 = new commentCount { Name = x.Name, Count = x.Count };
+                var myjson1 = new postCount { Name = x.Name, Count = x.Count };
                 mylist.Add(myjson1);
             }
             mylist = mylist.OrderByDescending(x => x.Count).Take(4).ToList();
@@ -305,7 +305,7 @@ namespace BlogProjMeitarBorisOrel.Controllers
     }
 }
 
-public class commentCount
+public class postCount
 {
     public string Name { get; set; }
     public int Count { get; set; }
