@@ -64,10 +64,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Text)
             </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.NumOfLikes)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Lat)
             </th>
@@ -102,10 +98,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Text)
                 </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumOfLikes)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Lat)
                 </td>
@@ -116,7 +108,7 @@
                     @Html.DisplayFor(modelItem => item.categoryID)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                    <a asp-action="Details" asp-route-id="@item.ID">View Post</a>
 
                     @if (User.Identity.IsAuthenticated)
                     {
