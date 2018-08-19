@@ -116,7 +116,7 @@
                     @Html.DisplayFor(modelItem => item.categoryID)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                    <a asp-action="Details" asp-route-id="@item.ID">View Post</a>
 
                     @if (User.Identity.IsAuthenticated)
                     {
